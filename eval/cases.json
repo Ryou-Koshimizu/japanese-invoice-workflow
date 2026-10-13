@@ -1,0 +1,1865 @@
+{
+  "referenceDate": "2026-10-14",
+  "cases": [
+    {
+      "id": "inv-01",
+      "group": "standard",
+      "template": "classic",
+      "dateStyle": "kanji",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-01.pdf",
+        "image": "inv-01.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "株式会社みなと印刷",
+        "registrationNumber": "T3180182123523",
+        "invoiceNumber": "INV-202609-077",
+        "issueDate": "2026-09-10",
+        "dueDate": "2026-10-31",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 155760,
+            "tax": 15576
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 171336,
+        "lineItems": [
+          {
+            "description": "会議室利用料",
+            "amount": 16200,
+            "taxRate": 10
+          },
+          {
+            "description": "トナーカートリッジ",
+            "amount": 20260,
+            "taxRate": 10
+          },
+          {
+            "description": "ビジネスマナー研修",
+            "amount": 119300,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-02",
+      "group": "standard",
+      "template": "modern",
+      "dateStyle": "slash",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-02.pdf",
+        "image": "inv-02.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "合同会社ソラ企画",
+        "registrationNumber": "T7854771531734",
+        "invoiceNumber": "INV-202609-187",
+        "issueDate": "2026-09-18",
+        "dueDate": "2026-10-31",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 10920,
+            "tax": 1092
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 12012,
+        "lineItems": [
+          {
+            "description": "業務用書籍",
+            "amount": 10920,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-03",
+      "group": "standard",
+      "template": "classic",
+      "dateStyle": "reiwa",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-03.pdf",
+        "image": "inv-03.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "有限会社やまびこ商会",
+        "registrationNumber": "T5848815898885",
+        "invoiceNumber": "INV-202608-937",
+        "issueDate": "2026-08-13",
+        "dueDate": "2026-09-30",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 151930,
+            "tax": 15193
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 167123,
+        "lineItems": [
+          {
+            "description": "ビジネスマナー研修",
+            "amount": 66070,
+            "taxRate": 10
+          },
+          {
+            "description": "チラシ印刷 A4両面 1,000部",
+            "amount": 85860,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-04",
+      "group": "standard",
+      "template": "modern",
+      "dateStyle": "kanji",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-04.pdf",
+        "image": "inv-04.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "株式会社アオバ通信",
+        "registrationNumber": "T5628957082180",
+        "invoiceNumber": "INV-202609-288",
+        "issueDate": "2026-09-23",
+        "dueDate": "2026-10-31",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "including",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 109960,
+            "tax": 9996
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 109960,
+        "lineItems": [
+          {
+            "description": "オフィス清掃作業費",
+            "amount": 85450,
+            "taxRate": 10
+          },
+          {
+            "description": "クラウドサーバー利用料",
+            "amount": 24510,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-05",
+      "group": "standard",
+      "template": "classic",
+      "dateStyle": "slash",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-05.pdf",
+        "image": "inv-05.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "株式会社ひかりデザインラボ",
+        "registrationNumber": "T3122157748611",
+        "invoiceNumber": "INV-202608-294",
+        "issueDate": "2026-08-22",
+        "dueDate": "2026-09-30",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 102440,
+            "tax": 10244
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 112684,
+        "lineItems": [
+          {
+            "description": "会議室利用料",
+            "amount": 6360,
+            "taxRate": 10
+          },
+          {
+            "description": "コピー用紙 A4 5箱",
+            "amount": 17300,
+            "taxRate": 10
+          },
+          {
+            "description": "SNS運用サポート",
+            "amount": 78780,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-06",
+      "group": "standard",
+      "template": "modern",
+      "dateStyle": "reiwa",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-06.pdf",
+        "image": "inv-06.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "北斗フードサービス株式会社",
+        "registrationNumber": "T3467486664428",
+        "invoiceNumber": "INV-202608-775",
+        "issueDate": "2026-08-11",
+        "dueDate": "2026-09-30",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 83650,
+            "tax": 8365
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 92015,
+        "lineItems": [
+          {
+            "description": "チラシ印刷 A4両面 1,000部",
+            "amount": 33990,
+            "taxRate": 10
+          },
+          {
+            "description": "複合機保守メンテナンス",
+            "amount": 41480,
+            "taxRate": 10
+          },
+          {
+            "description": "会議室利用料",
+            "amount": 5760,
+            "taxRate": 10
+          },
+          {
+            "description": "配送料",
+            "amount": 2420,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-07",
+      "group": "standard",
+      "template": "classic",
+      "dateStyle": "kanji",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-07.pdf",
+        "image": "inv-07.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "株式会社クレア文具",
+        "registrationNumber": "T1487665773917",
+        "invoiceNumber": "INV-202608-073",
+        "issueDate": "2026-08-23",
+        "dueDate": "2026-09-30",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 474750,
+            "tax": 47475
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 522225,
+        "lineItems": [
+          {
+            "description": "Web広告運用代行",
+            "amount": 95730,
+            "taxRate": 10
+          },
+          {
+            "description": "動画制作費",
+            "amount": 256750,
+            "taxRate": 10
+          },
+          {
+            "description": "オフィス清掃作業費",
+            "amount": 83900,
+            "taxRate": 10
+          },
+          {
+            "description": "トナーカートリッジ",
+            "amount": 38370,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-08",
+      "group": "standard",
+      "template": "modern",
+      "dateStyle": "slash",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-08.pdf",
+        "image": "inv-08.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "株式会社ツバメ物流",
+        "registrationNumber": "T8493547245060",
+        "invoiceNumber": "INV-202609-407",
+        "issueDate": "2026-09-12",
+        "dueDate": "2026-10-31",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "including",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 139530,
+            "tax": 12684
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 139530,
+        "lineItems": [
+          {
+            "description": "動画制作費",
+            "amount": 123680,
+            "taxRate": 10
+          },
+          {
+            "description": "コピー用紙 A4 5箱",
+            "amount": 15850,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-09",
+      "group": "standard",
+      "template": "classic",
+      "dateStyle": "reiwa",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-09.pdf",
+        "image": "inv-09.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "株式会社ミライ広告",
+        "registrationNumber": "T7077272876925",
+        "invoiceNumber": "INV-202608-457",
+        "issueDate": "2026-08-10",
+        "dueDate": "2026-09-30",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 80210,
+            "tax": 8021
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 88231,
+        "lineItems": [
+          {
+            "description": "ロゴデザイン制作",
+            "amount": 77270,
+            "taxRate": 10
+          },
+          {
+            "description": "決済手数料",
+            "amount": 2940,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-10",
+      "group": "standard",
+      "template": "modern",
+      "dateStyle": "kanji",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-10.pdf",
+        "image": "inv-10.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "こもれび青果株式会社",
+        "registrationNumber": "T6966627342255",
+        "invoiceNumber": "INV-202608-853",
+        "issueDate": "2026-08-03",
+        "dueDate": "2026-09-30",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 83900,
+            "tax": 8390
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 92290,
+        "lineItems": [
+          {
+            "description": "ビジネスマナー研修",
+            "amount": 83900,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-11",
+      "group": "standard",
+      "template": "classic",
+      "dateStyle": "slash",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-11.pdf",
+        "image": "inv-11.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "株式会社ナギサ不動産管理",
+        "registrationNumber": "T3134058346774",
+        "invoiceNumber": "INV-202608-203",
+        "issueDate": "2026-08-31",
+        "dueDate": "2026-09-30",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 8660,
+            "tax": 866
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 9526,
+        "lineItems": [
+          {
+            "description": "複合機保守メンテナンス",
+            "amount": 8660,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-12",
+      "group": "standard",
+      "template": "modern",
+      "dateStyle": "reiwa",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-12.pdf",
+        "image": "inv-12.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "株式会社ルミナス研修",
+        "registrationNumber": "T1465510938548",
+        "invoiceNumber": "INV-202609-237",
+        "issueDate": "2026-09-18",
+        "dueDate": "2026-10-31",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "including",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 116790,
+            "tax": 10617
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 116790,
+        "lineItems": [
+          {
+            "description": "コピー用紙 A4 5箱",
+            "amount": 3480,
+            "taxRate": 10
+          },
+          {
+            "description": "会議室利用料",
+            "amount": 32940,
+            "taxRate": 10
+          },
+          {
+            "description": "クラウドサーバー利用料",
+            "amount": 80370,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-13",
+      "group": "reduced",
+      "template": "classic",
+      "dateStyle": "kanji",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-13.pdf",
+        "image": "inv-13.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "北斗フードサービス株式会社",
+        "registrationNumber": "T1407683550784",
+        "invoiceNumber": "INV-202609-233",
+        "issueDate": "2026-09-02",
+        "dueDate": "2026-10-31",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 89450,
+            "tax": 8945
+          },
+          {
+            "rate": 8,
+            "base": 35220,
+            "tax": 2817
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 136432,
+        "lineItems": [
+          {
+            "description": "※ 焼き菓子詰め合わせ",
+            "amount": 12680,
+            "taxRate": 8
+          },
+          {
+            "description": "※ 国産野菜セット",
+            "amount": 3980,
+            "taxRate": 8
+          },
+          {
+            "description": "※ コーヒー豆 1kg",
+            "amount": 18560,
+            "taxRate": 8
+          },
+          {
+            "description": "ロゴデザイン制作",
+            "amount": 89450,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-14",
+      "group": "reduced",
+      "template": "modern",
+      "dateStyle": "slash",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-14.pdf",
+        "image": "inv-14.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "北斗フードサービス株式会社",
+        "registrationNumber": "T3127167312670",
+        "invoiceNumber": "INV-202608-470",
+        "issueDate": "2026-08-24",
+        "dueDate": "2026-09-30",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 82240,
+            "tax": 8224
+          },
+          {
+            "rate": 8,
+            "base": 27810,
+            "tax": 2224
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 120498,
+        "lineItems": [
+          {
+            "description": "※ コーヒー豆 1kg",
+            "amount": 16650,
+            "taxRate": 8
+          },
+          {
+            "description": "※ ペットボトル飲料 24本",
+            "amount": 8460,
+            "taxRate": 8
+          },
+          {
+            "description": "※ お弁当（会議用）",
+            "amount": 2700,
+            "taxRate": 8
+          },
+          {
+            "description": "ビジネスマナー研修",
+            "amount": 70000,
+            "taxRate": 10
+          },
+          {
+            "description": "会議室利用料",
+            "amount": 12240,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-15",
+      "group": "reduced",
+      "template": "classic",
+      "dateStyle": "reiwa",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-15.pdf",
+        "image": "inv-15.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "こもれび青果株式会社",
+        "registrationNumber": "T3401803214775",
+        "invoiceNumber": "INV-202609-413",
+        "issueDate": "2026-09-08",
+        "dueDate": "2026-10-31",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 121690,
+            "tax": 12169
+          },
+          {
+            "rate": 8,
+            "base": 14510,
+            "tax": 1160
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 149529,
+        "lineItems": [
+          {
+            "description": "※ お弁当（会議用）",
+            "amount": 3090,
+            "taxRate": 8
+          },
+          {
+            "description": "※ コーヒー豆 1kg",
+            "amount": 8980,
+            "taxRate": 8
+          },
+          {
+            "description": "※ ペットボトル飲料 24本",
+            "amount": 2440,
+            "taxRate": 8
+          },
+          {
+            "description": "Web広告運用代行",
+            "amount": 121690,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-16",
+      "group": "reduced",
+      "template": "modern",
+      "dateStyle": "kanji",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-16.pdf",
+        "image": "inv-16.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "こもれび青果株式会社",
+        "registrationNumber": "T2175410442233",
+        "invoiceNumber": "INV-202609-948",
+        "issueDate": "2026-09-13",
+        "dueDate": "2026-10-31",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 115880,
+            "tax": 11588
+          },
+          {
+            "rate": 8,
+            "base": 14790,
+            "tax": 1183
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 143441,
+        "lineItems": [
+          {
+            "description": "※ 国産野菜セット",
+            "amount": 9000,
+            "taxRate": 8
+          },
+          {
+            "description": "※ ペットボトル飲料 24本",
+            "amount": 4880,
+            "taxRate": 8
+          },
+          {
+            "description": "※ お弁当（会議用）",
+            "amount": 910,
+            "taxRate": 8
+          },
+          {
+            "description": "Web広告運用代行",
+            "amount": 115880,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-17",
+      "group": "reduced",
+      "template": "classic",
+      "dateStyle": "slash",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-17.pdf",
+        "image": "inv-17.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "北斗フードサービス株式会社",
+        "registrationNumber": "T4092208034741",
+        "invoiceNumber": "INV-202608-128",
+        "issueDate": "2026-08-11",
+        "dueDate": "2026-09-30",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "including",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 1580,
+            "tax": 143
+          },
+          {
+            "rate": 8,
+            "base": 26210,
+            "tax": 1941
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 27790,
+        "lineItems": [
+          {
+            "description": "※ お弁当（会議用）",
+            "amount": 6050,
+            "taxRate": 8
+          },
+          {
+            "description": "※ コーヒー豆 1kg",
+            "amount": 20160,
+            "taxRate": 8
+          },
+          {
+            "description": "配送料",
+            "amount": 1580,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-18",
+      "group": "reduced",
+      "template": "modern",
+      "dateStyle": "reiwa",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-18.pdf",
+        "image": "inv-18.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "株式会社クレア文具",
+        "registrationNumber": "T7487967546602",
+        "invoiceNumber": "INV-202608-483",
+        "issueDate": "2026-08-17",
+        "dueDate": "2026-09-30",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 58120,
+            "tax": 5812
+          },
+          {
+            "rate": 8,
+            "base": 32020,
+            "tax": 2561
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 98513,
+        "lineItems": [
+          {
+            "description": "※ 国産野菜セット",
+            "amount": 10260,
+            "taxRate": 8
+          },
+          {
+            "description": "※ コーヒー豆 1kg",
+            "amount": 13120,
+            "taxRate": 8
+          },
+          {
+            "description": "※ 焼き菓子詰め合わせ",
+            "amount": 8640,
+            "taxRate": 8
+          },
+          {
+            "description": "会議室利用料",
+            "amount": 58120,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-19",
+      "group": "reduced",
+      "template": "classic",
+      "dateStyle": "kanji",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-19.pdf",
+        "image": "inv-19.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "こもれび青果株式会社",
+        "registrationNumber": "T5867302903778",
+        "invoiceNumber": "INV-202609-149",
+        "issueDate": "2026-09-24",
+        "dueDate": "2026-10-31",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 64530,
+            "tax": 6453
+          },
+          {
+            "rate": 8,
+            "base": 8470,
+            "tax": 677
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 80130,
+        "lineItems": [
+          {
+            "description": "※ 焼き菓子詰め合わせ",
+            "amount": 3140,
+            "taxRate": 8
+          },
+          {
+            "description": "※ 国産野菜セット",
+            "amount": 5330,
+            "taxRate": 8
+          },
+          {
+            "description": "オフィス清掃作業費",
+            "amount": 64530,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-20",
+      "group": "reduced",
+      "template": "modern",
+      "dateStyle": "slash",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-20.pdf",
+        "image": "inv-20.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "北斗フードサービス株式会社",
+        "registrationNumber": "T5303864545808",
+        "invoiceNumber": "INV-202608-746",
+        "issueDate": "2026-08-15",
+        "dueDate": "2026-09-30",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 250560,
+            "tax": 25056
+          },
+          {
+            "rate": 8,
+            "base": 11730,
+            "tax": 938
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 288284,
+        "lineItems": [
+          {
+            "description": "※ お弁当（会議用）",
+            "amount": 1050,
+            "taxRate": 8
+          },
+          {
+            "description": "※ ペットボトル飲料 24本",
+            "amount": 2760,
+            "taxRate": 8
+          },
+          {
+            "description": "※ 焼き菓子詰め合わせ",
+            "amount": 7920,
+            "taxRate": 8
+          },
+          {
+            "description": "動画制作費",
+            "amount": 175680,
+            "taxRate": 10
+          },
+          {
+            "description": "SNS運用サポート",
+            "amount": 74880,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-21",
+      "group": "reduced",
+      "template": "classic",
+      "dateStyle": "reiwa",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-21.pdf",
+        "image": "inv-21.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "こもれび青果株式会社",
+        "registrationNumber": "T1367416756340",
+        "invoiceNumber": "INV-202609-996",
+        "issueDate": "2026-09-06",
+        "dueDate": "2026-10-31",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 37270,
+            "tax": 3727
+          },
+          {
+            "rate": 8,
+            "base": 11780,
+            "tax": 942
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 53719,
+        "lineItems": [
+          {
+            "description": "※ お弁当（会議用）",
+            "amount": 2300,
+            "taxRate": 8
+          },
+          {
+            "description": "※ 新米 5kg",
+            "amount": 9480,
+            "taxRate": 8
+          },
+          {
+            "description": "クラウドサーバー利用料",
+            "amount": 37270,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-22",
+      "group": "reduced",
+      "template": "modern",
+      "dateStyle": "kanji",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-22.pdf",
+        "image": "inv-22.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "株式会社クレア文具",
+        "registrationNumber": "T4671724454308",
+        "invoiceNumber": "INV-202608-164",
+        "issueDate": "2026-08-26",
+        "dueDate": "2026-09-30",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "including",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 17100,
+            "tax": 1554
+          },
+          {
+            "rate": 8,
+            "base": 16590,
+            "tax": 1228
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 33690,
+        "lineItems": [
+          {
+            "description": "※ 新米 5kg",
+            "amount": 13440,
+            "taxRate": 8
+          },
+          {
+            "description": "※ お弁当（会議用）",
+            "amount": 3150,
+            "taxRate": 8
+          },
+          {
+            "description": "コピー用紙 A4 5箱",
+            "amount": 17100,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-23",
+      "group": "withholding",
+      "template": "simple",
+      "dateStyle": "slash",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-23.pdf",
+        "image": "inv-23.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "デザイン事務所 佐々木葵",
+        "registrationNumber": "T9786144561446",
+        "invoiceNumber": "INV-202609-044",
+        "issueDate": "2026-09-15",
+        "dueDate": "2026-10-31",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 151000,
+            "tax": 15100
+          }
+        ],
+        "withholdingTax": 15417,
+        "totalAmount": 150683,
+        "lineItems": [
+          {
+            "description": "デザイン料",
+            "amount": 151000,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-24",
+      "group": "withholding",
+      "template": "simple",
+      "dateStyle": "reiwa",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-24.pdf",
+        "image": "inv-24.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "翻訳 田中結衣",
+        "registrationNumber": "T8361690632462",
+        "invoiceNumber": "INV-202609-952",
+        "issueDate": "2026-09-02",
+        "dueDate": "2026-10-31",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 62000,
+            "tax": 6200
+          }
+        ],
+        "withholdingTax": 6330,
+        "totalAmount": 61870,
+        "lineItems": [
+          {
+            "description": "翻訳料",
+            "amount": 62000,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-25",
+      "group": "withholding",
+      "template": "simple",
+      "dateStyle": "kanji",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-25.pdf",
+        "image": "inv-25.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "写真 山本蓮",
+        "registrationNumber": "T1473030365042",
+        "invoiceNumber": "INV-202609-449",
+        "issueDate": "2026-09-24",
+        "dueDate": "2026-10-31",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 74000,
+            "tax": 7400
+          }
+        ],
+        "withholdingTax": 7555,
+        "totalAmount": 73845,
+        "lineItems": [
+          {
+            "description": "撮影料",
+            "amount": 74000,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-26",
+      "group": "withholding",
+      "template": "simple",
+      "dateStyle": "slash",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-26.pdf",
+        "image": "inv-26.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "ライター 小林湊",
+        "registrationNumber": "T1700720922628",
+        "invoiceNumber": "INV-202609-239",
+        "issueDate": "2026-09-21",
+        "dueDate": "2026-10-31",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 57000,
+            "tax": 5700
+          }
+        ],
+        "withholdingTax": 5819,
+        "totalAmount": 56881,
+        "lineItems": [
+          {
+            "description": "原稿料",
+            "amount": 57000,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-27",
+      "group": "withholding",
+      "template": "simple",
+      "dateStyle": "reiwa",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-27.pdf",
+        "image": "inv-27.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "開発 中村陽向",
+        "registrationNumber": "T8380001078879",
+        "invoiceNumber": "INV-202608-313",
+        "issueDate": "2026-08-28",
+        "dueDate": "2026-09-30",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 794000,
+            "tax": 79400
+          }
+        ],
+        "withholdingTax": 81067,
+        "totalAmount": 792333,
+        "lineItems": [
+          {
+            "description": "システム開発報酬",
+            "amount": 794000,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-28",
+      "group": "withholding",
+      "template": "simple",
+      "dateStyle": "kanji",
+      "scanLike": false,
+      "files": {
+        "pdf": "inv-28.pdf",
+        "image": "inv-28.png"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "動画編集 伊藤凛",
+        "registrationNumber": "T2859335187034",
+        "invoiceNumber": "INV-202608-164",
+        "issueDate": "2026-08-01",
+        "dueDate": "2026-09-30",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 1200000,
+            "tax": 120000
+          }
+        ],
+        "withholdingTax": 142940,
+        "totalAmount": 1177060,
+        "lineItems": [
+          {
+            "description": "デザイン料",
+            "amount": 1200000,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-29",
+      "group": "hard",
+      "template": "classic",
+      "dateStyle": "slash",
+      "scanLike": true,
+      "files": {
+        "image": "inv-29.jpg"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "株式会社みなと印刷",
+        "registrationNumber": "T7390412187181",
+        "invoiceNumber": "INV-202609-845",
+        "issueDate": "2026-09-28",
+        "dueDate": "2026-10-31",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 149110,
+            "tax": 14911
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 164021,
+        "lineItems": [
+          {
+            "description": "Web広告運用代行",
+            "amount": 105060,
+            "taxRate": 10
+          },
+          {
+            "description": "SNS運用サポート",
+            "amount": 44050,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-30",
+      "group": "hard",
+      "template": "modern",
+      "dateStyle": "reiwa",
+      "scanLike": true,
+      "files": {
+        "image": "inv-30.jpg"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "北斗フードサービス株式会社",
+        "registrationNumber": "T6055337847455",
+        "invoiceNumber": "INV-202609-648",
+        "issueDate": "2026-09-20",
+        "dueDate": "2026-10-31",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 190500,
+            "tax": 19050
+          },
+          {
+            "rate": 8,
+            "base": 13380,
+            "tax": 1070
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 224000,
+        "lineItems": [
+          {
+            "description": "※ 国産野菜セット",
+            "amount": 10880,
+            "taxRate": 8
+          },
+          {
+            "description": "※ お弁当（会議用）",
+            "amount": 2500,
+            "taxRate": 8
+          },
+          {
+            "description": "動画制作費",
+            "amount": 190500,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-31",
+      "group": "hard",
+      "template": "simple",
+      "dateStyle": "kanji",
+      "scanLike": true,
+      "files": {
+        "image": "inv-31.jpg"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "株式会社ナギサ不動産管理",
+        "registrationNumber": "T9185011673245",
+        "invoiceNumber": "INV-202609-586",
+        "issueDate": "2026-09-18",
+        "dueDate": "2026-10-31",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 186440,
+            "tax": 18644
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 205084,
+        "lineItems": [
+          {
+            "description": "光回線利用料（10月分）",
+            "amount": 19140,
+            "taxRate": 10
+          },
+          {
+            "description": "動画制作費",
+            "amount": 109300,
+            "taxRate": 10
+          },
+          {
+            "description": "トナーカートリッジ",
+            "amount": 58000,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-32",
+      "group": "hard",
+      "template": "classic",
+      "dateStyle": "slash",
+      "scanLike": true,
+      "files": {
+        "image": "inv-32.jpg"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "株式会社アオバ通信",
+        "registrationNumber": "T6746271624377",
+        "invoiceNumber": "INV-202609-656",
+        "issueDate": "2026-09-22",
+        "dueDate": "2026-10-31",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 113500,
+            "tax": 11350
+          },
+          {
+            "rate": 8,
+            "base": 23730,
+            "tax": 1898
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 150478,
+        "lineItems": [
+          {
+            "description": "※ 焼き菓子詰め合わせ",
+            "amount": 11250,
+            "taxRate": 8
+          },
+          {
+            "description": "※ ペットボトル飲料 24本",
+            "amount": 12480,
+            "taxRate": 8
+          },
+          {
+            "description": "Web広告運用代行",
+            "amount": 113500,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-33",
+      "group": "hard",
+      "template": "modern",
+      "dateStyle": "reiwa",
+      "scanLike": true,
+      "files": {
+        "image": "inv-33.jpg"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "株式会社ミライ広告",
+        "registrationNumber": "T5135657228519",
+        "invoiceNumber": "INV-202608-880",
+        "issueDate": "2026-08-23",
+        "dueDate": "2026-09-30",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 75580,
+            "tax": 7558
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 83138,
+        "lineItems": [
+          {
+            "description": "光回線利用料（10月分）",
+            "amount": 19140,
+            "taxRate": 10
+          },
+          {
+            "description": "コピー用紙 A4 5箱",
+            "amount": 3240,
+            "taxRate": 10
+          },
+          {
+            "description": "複合機保守メンテナンス",
+            "amount": 8600,
+            "taxRate": 10
+          },
+          {
+            "description": "トナーカートリッジ",
+            "amount": 44600,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-34",
+      "group": "hard",
+      "template": "simple",
+      "dateStyle": "kanji",
+      "scanLike": true,
+      "files": {
+        "image": "inv-34.jpg"
+      },
+      "expectedIssues": [],
+      "truth": {
+        "vendorName": "合同会社ソラ企画",
+        "registrationNumber": "T8593385807382",
+        "invoiceNumber": "INV-202608-946",
+        "issueDate": "2026-08-02",
+        "dueDate": "2026-09-30",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 25520,
+            "tax": 2552
+          },
+          {
+            "rate": 8,
+            "base": 8940,
+            "tax": 715
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 37727,
+        "lineItems": [
+          {
+            "description": "※ お弁当（会議用）",
+            "amount": 4750,
+            "taxRate": 8
+          },
+          {
+            "description": "※ 国産野菜セット",
+            "amount": 4190,
+            "taxRate": 8
+          },
+          {
+            "description": "光回線利用料（10月分）",
+            "amount": 25520,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-35",
+      "group": "error",
+      "template": "classic",
+      "dateStyle": "slash",
+      "scanLike": false,
+      "note": "税額を100円多く記載",
+      "files": {
+        "pdf": "inv-35.pdf",
+        "image": "inv-35.png"
+      },
+      "expectedIssues": ["TAX_CALC", "TOTAL_MISMATCH"],
+      "truth": {
+        "vendorName": "株式会社アオバ通信",
+        "registrationNumber": "T6038799363152",
+        "invoiceNumber": "INV-202609-614",
+        "issueDate": "2026-09-11",
+        "dueDate": "2026-10-31",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 185680,
+            "tax": 18668
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 204248,
+        "lineItems": [
+          {
+            "description": "動画制作費",
+            "amount": 160150,
+            "taxRate": 10
+          },
+          {
+            "description": "複合機保守メンテナンス",
+            "amount": 25530,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-36",
+      "group": "error",
+      "template": "modern",
+      "dateStyle": "reiwa",
+      "scanLike": false,
+      "note": "請求金額が内訳の合計と1,000円ずれている",
+      "files": {
+        "pdf": "inv-36.pdf",
+        "image": "inv-36.png"
+      },
+      "expectedIssues": ["TOTAL_MISMATCH"],
+      "truth": {
+        "vendorName": "株式会社ナギサ不動産管理",
+        "registrationNumber": "T7849597998321",
+        "invoiceNumber": "INV-202608-980",
+        "issueDate": "2026-08-08",
+        "dueDate": "2026-09-30",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 93180,
+            "tax": 9318
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 103498,
+        "lineItems": [
+          {
+            "description": "Web広告運用代行",
+            "amount": 83490,
+            "taxRate": 10
+          },
+          {
+            "description": "コピー用紙 A4 5箱",
+            "amount": 9690,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-37",
+      "group": "error",
+      "template": "classic",
+      "dateStyle": "kanji",
+      "scanLike": false,
+      "note": "登録番号が12桁",
+      "files": {
+        "pdf": "inv-37.pdf",
+        "image": "inv-37.png"
+      },
+      "expectedIssues": ["REG_FORMAT"],
+      "truth": {
+        "vendorName": "北斗フードサービス株式会社",
+        "registrationNumber": "T945297698399",
+        "invoiceNumber": "INV-202609-626",
+        "issueDate": "2026-09-25",
+        "dueDate": "2026-10-31",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 99950,
+            "tax": 9995
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 109945,
+        "lineItems": [
+          {
+            "description": "Web広告運用代行",
+            "amount": 93570,
+            "taxRate": 10
+          },
+          {
+            "description": "光回線利用料（10月分）",
+            "amount": 6380,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-38",
+      "group": "error",
+      "template": "modern",
+      "dateStyle": "slash",
+      "scanLike": false,
+      "note": "軽減税率8%の対価に10%で税額を計算",
+      "files": {
+        "pdf": "inv-38.pdf",
+        "image": "inv-38.png"
+      },
+      "expectedIssues": ["TAX_CALC"],
+      "truth": {
+        "vendorName": "こもれび青果株式会社",
+        "registrationNumber": "T3126696196132",
+        "invoiceNumber": "INV-202609-967",
+        "issueDate": "2026-09-09",
+        "dueDate": "2026-10-31",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 46600,
+            "tax": 4660
+          },
+          {
+            "rate": 8,
+            "base": 13270,
+            "tax": 1327
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 65857,
+        "lineItems": [
+          {
+            "description": "※ コーヒー豆 1kg",
+            "amount": 10220,
+            "taxRate": 8
+          },
+          {
+            "description": "※ 新米 5kg",
+            "amount": 3050,
+            "taxRate": 8
+          },
+          {
+            "description": "クラウドサーバー利用料",
+            "amount": 46600,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-39",
+      "group": "error",
+      "template": "simple",
+      "dateStyle": "reiwa",
+      "scanLike": false,
+      "note": "源泉徴収を10%で計算",
+      "files": {
+        "pdf": "inv-39.pdf",
+        "image": "inv-39.png"
+      },
+      "expectedIssues": ["WITHHOLDING"],
+      "truth": {
+        "vendorName": "動画編集 伊藤凛",
+        "registrationNumber": "T5262870469165",
+        "invoiceNumber": "INV-202609-507",
+        "issueDate": "2026-09-04",
+        "dueDate": "2026-10-31",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 80000,
+            "tax": 8000
+          }
+        ],
+        "withholdingTax": 8000,
+        "totalAmount": 80000,
+        "lineItems": [
+          {
+            "description": "原稿料",
+            "amount": 80000,
+            "taxRate": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "inv-40",
+      "group": "error",
+      "template": "modern",
+      "dateStyle": "kanji",
+      "scanLike": false,
+      "note": "支払期日が請求日より前",
+      "files": {
+        "pdf": "inv-40.pdf",
+        "image": "inv-40.png"
+      },
+      "expectedIssues": ["DUE_BEFORE_ISSUE"],
+      "truth": {
+        "vendorName": "有限会社やまびこ商会",
+        "registrationNumber": "T6659289731820",
+        "invoiceNumber": "INV-202608-664",
+        "issueDate": "2026-08-23",
+        "dueDate": "2026-07-31",
+        "recipientName": "株式会社サンプル商事",
+        "amountBasis": "excluding",
+        "taxBreakdown": [
+          {
+            "rate": 10,
+            "base": 79570,
+            "tax": 7957
+          }
+        ],
+        "withholdingTax": 0,
+        "totalAmount": 87527,
+        "lineItems": [
+          {
+            "description": "クラウドサーバー利用料",
+            "amount": 39300,
+            "taxRate": 10
+          },
+          {
+            "description": "SNS運用サポート",
+            "amount": 40270,
+            "taxRate": 10
+          }
+        ]
+      }
+    }
+  ]
+}
