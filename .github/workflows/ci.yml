@@ -1,0 +1,28 @@
+name: CI
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run format:check
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run eval:pipeline
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - run: docker compose up -d --wait
+      - run: RUN_POSTGRES_TESTS=1 npx vitest run tests/postgres.test.ts
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-results
+          path: playwright-report/
+          if-no-files-found: ignore
