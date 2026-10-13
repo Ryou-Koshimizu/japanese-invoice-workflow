@@ -10,3 +10,4 @@ test-results/
 .captures/
 .local-data/
 public/pdf.worker.min.mjs
+next-env.d.ts
