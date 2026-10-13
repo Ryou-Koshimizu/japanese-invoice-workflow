@@ -1,0 +1,1 @@
+Read AGENTS.md and docs/requirements.md before changing this project. Run npm run typecheck, npm test, npm run build and npm run test:e2e. Real AI eval needs the operator's own API key or ChatGPT login. Never present unmeasured goals as achieved or demo fixtures as AI output.

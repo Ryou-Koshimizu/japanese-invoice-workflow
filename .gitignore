@@ -1,0 +1,12 @@
+node_modules/
+.next/
+.env*
+!.env.example
+reports/
+playwright-report/
+test-results/
+*.log
+*.tsbuildinfo
+.captures/
+.local-data/
+public/pdf.worker.min.mjs
