@@ -42,7 +42,9 @@ export default function Uploader({
   }
 
   async function useSample(name: string) {
-    const r = await fetch(`/api/samples/${name}`);
+    // Same pattern the server enforces: only the bundled sample files.
+    if (!/^inv-\d{2}\.(pdf|png|jpg)$/.test(name)) return;
+    const r = await fetch(`/api/samples/${encodeURIComponent(name)}`);
     const blob = await r.blob();
     await upload(new File([blob], name, { type: blob.type }), true);
   }
