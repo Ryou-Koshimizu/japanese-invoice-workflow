@@ -27,7 +27,7 @@
 
 | 指標                                                | 結果                                                                                                                                                         |
 | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 権限・分離のテスト                                  | PGliteと実PostgreSQL 16の両方で、他組織の参照・自己承認・出力済みの編集・監査ログの改変・パスワードハッシュの参照がDBで拒否されることを確認                  |
+| 権限・分離のテスト                                  | PGliteと実PostgreSQL（16・17）の両方で、他組織の参照・自己承認・出力済みの編集・監査ログの改変・パスワードハッシュの参照がDBで拒否されることを確認           |
 | 単体・DB・E2Eテスト                                 | 53件 + 実PostgreSQL 6件 + ブラウザ4件、すべて成功（GitHub ActionsのCIで毎回実行）。axeのWCAG A/AA違反0件                                                     |
 | 誤りを含む請求書の検出（正解データ、AIなし）        | 6/6                                                                                                                                                          |
 | **実AIの抽出精度**（ChatGPT / Codex CLI、架空40枚） | **40枚すべてで必須項目が完全一致**（項目別100%）。誤りを含む6枚はAI経由でも6/6を検出。1枚あたり中央値6.8秒。[記録](docs/evidence/eval-codex-2026-10-16.json) |
@@ -108,7 +108,7 @@ npm run eval   # EXTRACTION_PROVIDER=claude または codex
 ```sh
 npm run typecheck && npm test && npm run build
 npx playwright install chromium && npm run test:e2e
-npm run db:up && RUN_POSTGRES_TESTS=1 npx vitest run tests/postgres.test.ts
+npm run db:up && RUN_POSTGRES_TESTS=1 npx vitest run tests/postgres.test.ts tests/demo-postgres.test.ts
 ```
 
 対象外：会計ソフトへのAPI連携、支払い処理、電子帳簿保存法の要件を満たす保存、SSO。[要件定義](docs/requirements.md) に状態を記載しています。

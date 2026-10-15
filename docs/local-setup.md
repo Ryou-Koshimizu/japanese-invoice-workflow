@@ -62,7 +62,7 @@ vercel deploy --prod
 ```sh
 npm run typecheck && npm test && npm run build
 npx playwright install chromium && npm run test:e2e
-RUN_POSTGRES_TESTS=1 npx vitest run tests/postgres.test.ts   # db:up の後
+RUN_POSTGRES_TESTS=1 npx vitest run tests/postgres.test.ts tests/demo-postgres.test.ts   # db:up の後
 ```
 
 Playwrightのブラウザを取得できない環境では、`CHROMIUM_EXECUTABLE_PATH` に任意のChromiumを指定できます。

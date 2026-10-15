@@ -45,7 +45,7 @@ AIが誤った値を返した場合でも、判定するのはルールで、人
 npm ci
 npm run typecheck && npm test && npm run build
 npx playwright install chromium && npm run test:e2e
-npm run db:up && RUN_POSTGRES_TESTS=1 npx vitest run tests/postgres.test.ts
+npm run db:up && RUN_POSTGRES_TESTS=1 npx vitest run tests/postgres.test.ts tests/demo-postgres.test.ts
 ```
 
 同じ手順をGitHub ActionsのCIが毎回実行します。実AIの評価は利用者自身のAPIキーまたはChatGPTログインで `npm run eval` を実行し、費用や利用枠は実行者に発生します。
