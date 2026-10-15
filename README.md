@@ -4,11 +4,15 @@
 
 [![CI](https://github.com/Ryou-Koshimizu/japanese-invoice-workflow/actions/workflows/ci.yml/badge.svg)](https://github.com/Ryou-Koshimizu/japanese-invoice-workflow/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FRyou-Koshimizu%2Fjapanese-invoice-workflow)
 
 ![担当者が誤った税額を修正して承認依頼 → 承認者が承認 → 管理者が仕訳CSVを出力](docs/assets/demo.gif)
 
 上は公開デモの実画面です（AIは呼ばず、同梱のサンプルは事前に用意した読み取り結果を使用）。税額の誤りをルールが検出し、修正すると再検証で解消され、承認・出力・監査ログまで流れます。
+
+<p>
+  <img src="docs/assets/review-desktop.webp" alt="確認画面：原本と読み取り結果を並べ、エラーの項目を強調" width="68%">
+  <img src="docs/assets/inbox-mobile.webp" alt="スマホ幅の請求書一覧：状態と検証結果を発行者の下にまとめて表示" width="27%">
+</p>
 
 ## 何ができるか
 
@@ -20,14 +24,14 @@
 
 ## 実測
 
-| 指標                                         | 結果                                                                                                                                        |
-| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| 権限・分離のテスト                           | PGliteと実PostgreSQL 16の両方で、他組織の参照・自己承認・出力済みの編集・監査ログの改変・パスワードハッシュの参照がDBで拒否されることを確認 |
-| 単体・DB・E2Eテスト                          | 50件 + 実PostgreSQL 3件 + ブラウザ4件、すべて成功（GitHub ActionsのCIで毎回実行）。axeのWCAG A/AA違反0件                                    |
-| 誤りを含む請求書の検出（正解データ、AIなし） | 6/6                                                                                                                                         |
-| **実AIの抽出精度・時間・費用**               | **未測定**。`npm run eval` で40枚を測定する（下記）                                                                                         |
+| 指標                                                | 結果                                                                                                                                                         |
+| --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 権限・分離のテスト                                  | PGliteと実PostgreSQL 16の両方で、他組織の参照・自己承認・出力済みの編集・監査ログの改変・パスワードハッシュの参照がDBで拒否されることを確認                  |
+| 単体・DB・E2Eテスト                                 | 50件 + 実PostgreSQL 3件 + ブラウザ4件、すべて成功（GitHub ActionsのCIで毎回実行）。axeのWCAG A/AA違反0件                                                     |
+| 誤りを含む請求書の検出（正解データ、AIなし）        | 6/6                                                                                                                                                          |
+| **実AIの抽出精度**（ChatGPT / Codex CLI、架空40枚） | **40枚すべてで必須項目が完全一致**（項目別100%）。誤りを含む6枚はAI経由でも6/6を検出。1枚あたり中央値6.8秒。[記録](docs/evidence/eval-codex-2026-10-16.json) |
 
-詳しくは [検証記録](docs/verification.md)。提出・レビュー向けの説明は [業務シナリオと導入条件](docs/freelance-submission.md)。
+実AIの結果は、このプロジェクトが生成した架空の請求書（3種類のレイアウト）でのもので、実際の取引先の請求書での精度を保証するものではありません。Claudeでの測定と費用の換算は未実施です。詳しくは [検証記録](docs/verification.md)。提出・レビュー向けの説明は [業務シナリオと導入条件](docs/freelance-submission.md)。
 
 ## 試す
 
@@ -82,6 +86,8 @@ npm run eval   # EXTRACTION_PROVIDER=claude または codex
 ```
 
 金額は1円単位、日付・登録番号は完全一致、名称は空白と記号の違いを許容して項目ごとに採点し、必須項目がすべて正しかった割合と、誤りを含む請求書をAI経由でも検出できたかを出します。結果はモデル名・コミット・データとプロンプトのハッシュとともに `reports/` に保存します。デモ用データやモックの結果は精度に数えません。
+
+2026-10-16にChatGPT（Codex CLI、`gpt-6.1-sol`、推論は低）で40枚の画像を測定し、全件で必須項目が完全一致、誤りの検出6/6、中央値6.8秒、入力トークン合計約37万でした（[レポート](docs/evidence/eval-codex-2026-10-16.json)）。
 
 ## セキュリティ
 
