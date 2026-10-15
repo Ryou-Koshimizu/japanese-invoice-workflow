@@ -19,18 +19,29 @@ async function provider(config: Config): Promise<ExtractionProvider> {
   );
 }
 
-/** Refuse to run on a connection that could bypass row-level security. */
+/**
+ * Refuse to run on a connection that could bypass row-level security: a
+ * superuser, a BYPASSRLS role, or the owner of the tables (owners are exempt
+ * from their own policies).
+ */
 async function assertRestrictedRole(db: Database) {
   const r = await db.transaction((tx) =>
-    tx.query<{ rolsuper: boolean; rolbypassrls: boolean; member: boolean }>(
-      `SELECT rolsuper, rolbypassrls, pg_has_role(current_user, 'app_user', 'MEMBER') AS member
+    tx.query<{
+      rolsuper: boolean;
+      rolbypassrls: boolean;
+      member: boolean;
+      owner: boolean;
+    }>(
+      `SELECT rolsuper, rolbypassrls, pg_has_role(current_user, 'app_user', 'MEMBER') AS member,
+              EXISTS (SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
+                       WHERE n.nspname = 'app' AND pg_has_role(current_user, c.relowner, 'MEMBER')) AS owner
          FROM pg_roles WHERE rolname = current_user`,
     ),
   );
   const role = r.rows[0];
-  if (!role || role.rolsuper || role.rolbypassrls || !role.member)
+  if (!role || role.rolsuper || role.rolbypassrls || !role.member || role.owner)
     throw new Error(
-      'DATABASE_URL must use a non-superuser role without BYPASSRLS that is a member of app_user.',
+      'DATABASE_URL must use a non-superuser role without BYPASSRLS that is a member of app_user and owns no tables.',
     );
 }
 

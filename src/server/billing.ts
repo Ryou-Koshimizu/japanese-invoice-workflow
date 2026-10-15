@@ -96,10 +96,23 @@ export async function handleWebhook(
   const change = planChange(event);
   if (!change || (!change.orgId && !change.customer))
     return { applied: false, ignored: true };
+  // Stripe may deliver events out of order; the database ignores an event
+  // older than the one that last changed the plan.
+  const created =
+    typeof event.created === 'number'
+      ? new Date(event.created * 1000).toISOString()
+      : null;
   const r = await asUser(db, null, (tx) =>
     tx.query<{ ok: boolean }>(
-      'SELECT app.billing_apply($1, $2, $3, $4, $5) AS ok',
-      [event.id, event.type, change.orgId, change.plan, change.customer],
+      'SELECT app.billing_apply($1, $2, $3, $4, $5, $6) AS ok',
+      [
+        event.id,
+        event.type,
+        change.orgId,
+        change.plan,
+        change.customer,
+        created,
+      ],
     ),
   );
   return { applied: r.rows[0].ok, ignored: false };

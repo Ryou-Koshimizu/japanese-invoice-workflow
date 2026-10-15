@@ -17,6 +17,9 @@ CREATE TABLE app.organizations (
   name text NOT NULL CHECK (length(name) BETWEEN 1 AND 100),
   plan text NOT NULL DEFAULT 'free' CHECK (plan IN ('free', 'pro')),
   stripe_customer_id text UNIQUE,
+  -- Creation time of the Stripe event that last changed the plan, so a retried
+  -- older event cannot undo a newer one.
+  plan_event_at timestamptz,
   created_at timestamptz NOT NULL DEFAULT now()
 );
 
@@ -58,6 +61,8 @@ CREATE TABLE app.invoices (
   warning_note text,
   reject_reason text,
   extraction_meta jsonb,
+  -- AI reads per invoice (MAX_EXTRACTIONS in src/core/workflow.ts).
+  extraction_count integer NOT NULL DEFAULT 0 CHECK (extraction_count BETWEEN 0 AND 3),
   registration_number text,
   invoice_number text,
   total_amount bigint,
@@ -84,6 +89,8 @@ CREATE TABLE app.export_batches (
   invoice_count integer NOT NULL CHECK (invoice_count > 0),
   created_at timestamptz NOT NULL DEFAULT now()
 );
+ALTER TABLE app.invoices
+  ADD FOREIGN KEY (export_batch_id) REFERENCES app.export_batches(id);
 
 CREATE TABLE app.vendor_accounts (
   org_id uuid NOT NULL REFERENCES app.organizations(id),
@@ -172,7 +179,9 @@ CREATE POLICY invoices_update ON app.invoices FOR UPDATE
 CREATE POLICY files_read ON app.invoice_files FOR SELECT
   USING (org_id = app.current_org_id() AND app.current_role() IS NOT NULL);
 CREATE POLICY files_insert ON app.invoice_files FOR INSERT
-  WITH CHECK (org_id = app.current_org_id() AND app.current_role() IS NOT NULL);
+  WITH CHECK (org_id = app.current_org_id() AND app.current_role() IS NOT NULL
+              AND EXISTS (SELECT 1 FROM app.invoices i
+                          WHERE i.id = invoice_id AND i.org_id = app.current_org_id()));
 
 CREATE POLICY batches_read ON app.export_batches FOR SELECT
   USING (org_id = app.current_org_id() AND app.current_role() = 'admin');
@@ -198,7 +207,7 @@ GRANT SELECT ON app.organizations, app.memberships, app.invoices,
 GRANT INSERT ON app.invoices, app.invoice_files, app.export_batches, app.vendor_accounts TO app_user;
 GRANT UPDATE (status, data, issues, account, warning_note, reject_reason, extraction_meta,
   ai_data, registration_number, invoice_number, total_amount, submitted_by, approved_by,
-  export_batch_id, updated_at) ON app.invoices TO app_user;
+  export_batch_id, extraction_count, updated_at) ON app.invoices TO app_user;
 GRANT UPDATE (account) ON app.vendor_accounts TO app_user;
 GRANT UPDATE (role) ON app.memberships TO app_user;
 GRANT EXECUTE ON FUNCTION app.current_user_id(), app.current_org_id(), app.current_role(),
@@ -221,6 +230,21 @@ BEGIN
   IF NEW.org_id <> OLD.org_id OR NEW.uploaded_by <> OLD.uploaded_by
      OR NEW.file_sha256 <> OLD.file_sha256 THEN
     RAISE EXCEPTION 'immutable invoice columns' USING ERRCODE = '42501';
+  END IF;
+  -- Who submitted, approved and exported, and the notes that go with it, change
+  -- only in the transition that owns them (otherwise an approver could rewrite
+  -- submitted_by on their own request and then approve it).
+  IF ((NEW.submitted_by IS DISTINCT FROM OLD.submitted_by
+       OR NEW.warning_note IS DISTINCT FROM OLD.warning_note)
+      AND NOT (NEW.status = 'submitted' AND OLD.status <> 'submitted'))
+     OR (NEW.approved_by IS DISTINCT FROM OLD.approved_by
+         AND NOT (NEW.status = 'approved' AND OLD.status = 'submitted'))
+     OR (NEW.reject_reason IS DISTINCT FROM OLD.reject_reason
+         AND NOT (NEW.status IN ('submitted', 'rejected') AND NEW.status <> OLD.status))
+     OR (NEW.export_batch_id IS DISTINCT FROM OLD.export_batch_id
+         AND NOT (NEW.status = 'exported' AND OLD.status = 'approved'))
+     OR NEW.extraction_count < OLD.extraction_count THEN
+    RAISE EXCEPTION 'workflow columns change only with their transition' USING ERRCODE = '42501';
   END IF;
 
   IF NEW.status = OLD.status THEN
@@ -268,6 +292,10 @@ BEGIN
       END IF;
       IF NEW.export_batch_id IS NULL OR NEW.data IS DISTINCT FROM OLD.data THEN
         RAISE EXCEPTION 'export needs a batch and unchanged data' USING ERRCODE = '42501';
+      END IF;
+      IF NOT EXISTS (SELECT 1 FROM app.export_batches b
+                     WHERE b.id = NEW.export_batch_id AND b.org_id = NEW.org_id) THEN
+        RAISE EXCEPTION 'export batch of another organization' USING ERRCODE = '42501';
       END IF;
     ELSE
       RAISE EXCEPTION 'invalid transition % -> %', OLD.status, NEW.status USING ERRCODE = '42501';
@@ -419,11 +447,16 @@ LANGUAGE sql SECURITY DEFINER SET search_path = app, pg_temp AS $$
 $$;
 
 -- Billing: called only after the application verified the Stripe signature.
--- Returns false when the event was already processed (idempotency).
+-- Returns false when the event was already processed (idempotency). Stripe does
+-- not deliver events in order, so an event older than the one that last changed
+-- the plan is recorded but not applied.
 CREATE FUNCTION app.billing_apply(p_event_id text, p_type text, p_org uuid,
-                                  p_plan text, p_customer text)
+                                  p_plan text, p_customer text,
+                                  p_created timestamptz DEFAULT NULL)
 RETURNS boolean
 LANGUAGE plpgsql SECURITY DEFINER SET search_path = app, pg_temp AS $$
+DECLARE
+  changed uuid;
 BEGIN
   INSERT INTO app.stripe_events (id, type) VALUES (p_event_id, p_type)
   ON CONFLICT (id) DO NOTHING;
@@ -435,11 +468,15 @@ BEGIN
   END IF;
   UPDATE app.organizations
      SET plan = p_plan,
-         stripe_customer_id = coalesce(p_customer, stripe_customer_id)
-   WHERE id = p_org OR (p_org IS NULL AND stripe_customer_id = p_customer);
-  INSERT INTO app.audit_log (org_id, action, detail)
-  SELECT id, 'billing', jsonb_build_object('event', p_type, 'plan', p_plan)
-    FROM app.organizations WHERE id = p_org OR (p_org IS NULL AND stripe_customer_id = p_customer);
+         stripe_customer_id = coalesce(p_customer, stripe_customer_id),
+         plan_event_at = coalesce(p_created, plan_event_at)
+   WHERE (id = p_org OR (p_org IS NULL AND stripe_customer_id = p_customer))
+     AND (p_created IS NULL OR plan_event_at IS NULL OR p_created >= plan_event_at)
+  RETURNING id INTO changed;
+  IF changed IS NOT NULL THEN
+    INSERT INTO app.audit_log (org_id, action, detail)
+    VALUES (changed, 'billing', jsonb_build_object('event', p_type, 'plan', p_plan));
+  END IF;
   RETURN true;
 END $$;
 
@@ -453,7 +490,7 @@ $$;
 
 REVOKE ALL ON FUNCTION app.auth_lookup(text), app.auth_create_session(text, uuid, uuid, interval),
   app.auth_session(text), app.auth_delete_session(text),
-  app.billing_apply(text, text, uuid, text, text), app.monthly_usage() FROM PUBLIC;
+  app.billing_apply(text, text, uuid, text, text, timestamptz), app.monthly_usage() FROM PUBLIC;
 GRANT EXECUTE ON FUNCTION app.auth_lookup(text), app.auth_create_session(text, uuid, uuid, interval),
   app.auth_session(text), app.auth_delete_session(text),
-  app.billing_apply(text, text, uuid, text, text), app.monthly_usage() TO app_user;
+  app.billing_apply(text, text, uuid, text, text, timestamptz), app.monthly_usage() TO app_user;

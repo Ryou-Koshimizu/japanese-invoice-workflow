@@ -11,14 +11,19 @@ let db: Database;
 let pg: PGlite;
 let orgId: string;
 
-const event = (id: string, type: string, object: Record<string, unknown>) =>
+const event = (
+  id: string,
+  type: string,
+  object: Record<string, unknown>,
+  created = 1,
+) =>
   JSON.stringify({
     id,
     object: 'event',
     type,
     data: { object },
     api_version: '2026-01-01',
-    created: 1,
+    created,
     livemode: false,
     pending_webhooks: 0,
     request: null,
@@ -117,6 +122,29 @@ describe('Stripe webhook', () => {
       sign(body),
       stripe,
     );
+    expect(await plan()).toBe('free');
+  });
+  it('ignores an older event that Stripe delivers after a newer one', async () => {
+    const newer = event(
+      'evt_f',
+      'customer.subscription.deleted',
+      { status: 'canceled', customer: 'cus_1', metadata: {} },
+      300,
+    );
+    const older = event(
+      'evt_g',
+      'customer.subscription.updated',
+      { status: 'active', customer: 'cus_1', metadata: {} },
+      200,
+    );
+    for (const body of [newer, older])
+      await handleWebhook(
+        db,
+        { webhookSecret: secret },
+        body,
+        sign(body),
+        stripe,
+      );
     expect(await plan()).toBe('free');
   });
   it('ignores unrelated events', () => {

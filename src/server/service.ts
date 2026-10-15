@@ -13,7 +13,7 @@ import {
 import { hasErrors } from '../core/rules';
 import { reviewIssues } from '../core/review';
 import { suggestAccount, accounts } from '../core/accounts';
-import { can, type Action } from '../core/workflow';
+import { can, MAX_EXTRACTIONS, type Action } from '../core/workflow';
 import { toCsv } from '../core/csv';
 import { asUser, AppError, type Database, type Sql } from './db';
 import type { Session } from './auth';
@@ -168,6 +168,19 @@ export async function extractInvoice(
   const { inv, file } = await asUser(deps.db, ctx(s), async (tx) => {
     const inv = await load(tx, id);
     ensure('extract', s, inv);
+    // Counted before the AI call and committed with this short transaction, so
+    // parallel requests cannot run more reads than the limit.
+    const counted = await tx.query(
+      `UPDATE app.invoices SET extraction_count = extraction_count + 1
+        WHERE id = $1 AND extraction_count < $2 RETURNING id`,
+      [id, MAX_EXTRACTIONS],
+    );
+    if (!counted.rows.length)
+      throw new AppError(
+        429,
+        `AIによる読み取りは1枚につき${MAX_EXTRACTIONS}回までです。内容は画面で直接修正してください。`,
+        'EXTRACTION_LIMIT',
+      );
     const f = await tx.query<{ content: Uint8Array }>(
       'SELECT content FROM app.invoice_files WHERE invoice_id = $1',
       [id],

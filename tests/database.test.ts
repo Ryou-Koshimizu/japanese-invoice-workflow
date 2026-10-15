@@ -132,6 +132,56 @@ describe('workflow enforced by the database itself', () => {
       ),
     );
   });
+  it('does not let an approver rewrite who submitted their own request', async () => {
+    const id = await uploadInvoice(
+      deps,
+      s.approver,
+      'inv-08.pdf',
+      file('inv-08.pdf'),
+    );
+    await extractInvoice(deps, s.approver, id);
+    await submitInvoice(deps, s.approver, id, '確認済み');
+    await expectDbDenied(
+      asUser(db, ctx(s.approver), (tx) =>
+        tx.query('UPDATE app.invoices SET submitted_by = $2 WHERE id = $1', [
+          id,
+          s.member.userId,
+        ]),
+      ),
+    );
+    await expectDbDenied(
+      asUser(db, ctx(s.approver), (tx) =>
+        tx.query(
+          `UPDATE app.invoices SET status = 'approved', approved_by = app.current_user_id(),
+                  submitted_by = $2 WHERE id = $1`,
+          [id, s.member.userId],
+        ),
+      ),
+    );
+  });
+  it('limits AI reads per invoice, also against parallel requests and direct SQL', async () => {
+    const id = await uploadInvoice(
+      deps,
+      s.member,
+      'inv-09.pdf',
+      file('inv-09.pdf'),
+    );
+    const results = await Promise.allSettled(
+      Array.from({ length: 5 }, () => extractInvoice(deps, s.member, id)),
+    );
+    expect(results.filter((r) => r.status === 'fulfilled')).toHaveLength(3);
+    await expect(extractInvoice(deps, s.member, id)).rejects.toMatchObject({
+      status: 429,
+      code: 'EXTRACTION_LIMIT',
+    });
+    await expectDbDenied(
+      asUser(db, ctx(s.member), (tx) =>
+        tx.query('UPDATE app.invoices SET extraction_count = 0 WHERE id = $1', [
+          id,
+        ]),
+      ),
+    );
+  });
   it('rejects approval by a member at the database level', async () => {
     const id = await submittedBy(s.admin, 'inv-07.pdf');
     await expectDbDenied(

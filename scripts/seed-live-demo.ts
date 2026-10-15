@@ -7,6 +7,17 @@ import { fixtureProvider } from '../src/adapters/fixture';
 import { seedDemo } from '../src/server/demo-seed';
 import { DEMO_TODAY } from '../src/server/config';
 
+// The demo accounts use a published password, so they must never reach a
+// database that anyone else can log in to.
+const host = new URL(process.env.ADMIN_DATABASE_URL ?? '').hostname;
+if (
+  !['127.0.0.1', 'localhost', '[::1]'].includes(host) &&
+  process.env.ALLOW_DEMO_SEED !== '1'
+)
+  throw new Error(
+    'Demo accounts use a published password. Seed only a local database, or set ALLOW_DEMO_SEED=1 if you are sure.',
+  );
+
 const admin = new pg.Client({
   connectionString: process.env.ADMIN_DATABASE_URL,
 });

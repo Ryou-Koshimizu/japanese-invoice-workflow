@@ -3,6 +3,12 @@ import type { Role, Status } from './invoice';
 export type Action =
   'extract' | 'edit' | 'submit' | 'approve' | 'reject' | 'export';
 
+/**
+ * AI reads per invoice, including retries. Bounds what one upload can cost on
+ * the operator's AI account; the database CHECK on extraction_count enforces it.
+ */
+export const MAX_EXTRACTIONS = 3;
+
 export type Actor = { userId: string; role: Role };
 export type InvoiceState = { status: Status; submittedBy: string | null };
 
