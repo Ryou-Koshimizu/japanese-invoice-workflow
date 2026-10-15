@@ -4,6 +4,7 @@
 
 [![CI](https://github.com/Ryou-Koshimizu/japanese-invoice-workflow/actions/workflows/ci.yml/badge.svg)](https://github.com/Ryou-Koshimizu/japanese-invoice-workflow/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![公開デモ](https://img.shields.io/badge/%E5%85%AC%E9%96%8B%E3%83%87%E3%83%A2-%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E3%81%A7%E9%96%8B%E3%81%8F-0369a1)](https://japanese-invoice-workflow.vercel.app)
 
 ![担当者が誤った税額を修正して承認依頼 → 承認者が承認 → 管理者が仕訳CSVを出力](docs/assets/demo.gif)
 
@@ -27,7 +28,7 @@
 | 指標                                                | 結果                                                                                                                                                         |
 | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | 権限・分離のテスト                                  | PGliteと実PostgreSQL 16の両方で、他組織の参照・自己承認・出力済みの編集・監査ログの改変・パスワードハッシュの参照がDBで拒否されることを確認                  |
-| 単体・DB・E2Eテスト                                 | 50件 + 実PostgreSQL 3件 + ブラウザ4件、すべて成功（GitHub ActionsのCIで毎回実行）。axeのWCAG A/AA違反0件                                                     |
+| 単体・DB・E2Eテスト                                 | 53件 + 実PostgreSQL 6件 + ブラウザ4件、すべて成功（GitHub ActionsのCIで毎回実行）。axeのWCAG A/AA違反0件                                                     |
 | 誤りを含む請求書の検出（正解データ、AIなし）        | 6/6                                                                                                                                                          |
 | **実AIの抽出精度**（ChatGPT / Codex CLI、架空40枚） | **40枚すべてで必須項目が完全一致**（項目別100%）。誤りを含む6枚はAI経由でも6/6を検出。1枚あたり中央値6.8秒。[記録](docs/evidence/eval-codex-2026-10-16.json) |
 
@@ -35,7 +36,11 @@
 
 ## 試す
 
-### 公開デモ（APIキー・DB不要）
+### ブラウザで（インストール不要）
+
+**<https://japanese-invoice-workflow.vercel.app>** を開き、役割を選んでログインします。AIは呼ばず、同梱の架空サンプルだけを扱います。データは閲覧者で共有され、1日ごと（または管理者の「デモを初期化」）に元に戻ります。
+
+### 手元で（APIキー・DB不要）
 
 ```sh
 npm ci
