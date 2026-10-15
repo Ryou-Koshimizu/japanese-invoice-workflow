@@ -46,7 +46,18 @@ npm run eval:pipeline                 # AIを使わない仕組みの確認（�
 
 プランはWebhookでのみ切り替わります。
 
-## 6. テスト
+## 6. 公開デモをVercelに置く
+
+画面とAPIが別々のインスタンスで動くため、デモ専用のPostgreSQLを `DEMO_DATABASE_URL`（任意で直結用の `DEMO_DATABASE_URL_UNPOOLED`）に設定します。初回の起動でスキーマと架空データを作り、1日ごと、または管理者の「デモを初期化」で元に戻します。そのDBの中身はすべて消えるので、デモ専用にしてください。
+
+```sh
+vercel integration add neon --plan free_v3 --prefix DEMO_ -e production --no-env-pull
+vercel deploy --prod
+```
+
+`vercel.json` のビルドで、アプリ全体を1つの関数として動かします（[ADR 003](adr/003-demo-without-ai.md)）。
+
+## 7. テスト
 
 ```sh
 npm run typecheck && npm test && npm run build
@@ -56,7 +67,7 @@ RUN_POSTGRES_TESTS=1 npx vitest run tests/postgres.test.ts   # db:up の後
 
 Playwrightのブラウザを取得できない環境では、`CHROMIUM_EXECUTABLE_PATH` に任意のChromiumを指定できます。
 
-## 7. 評価用の請求書を作り直す
+## 8. 評価用の請求書を作り直す
 
 ```sh
 CHROMIUM_EXECUTABLE_PATH=... npm run invoices:generate   # HTMLからPDF・PNGを生成し、誤りの検出を自己検査

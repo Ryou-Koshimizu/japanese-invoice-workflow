@@ -13,11 +13,25 @@ const live = z.object({
 });
 
 export type Config =
-  { mode: 'demo' } | ({ mode: 'live' } & z.infer<typeof live>);
+  | {
+      mode: 'demo';
+      /** Shared demo database for multi-instance hosts (see demo-postgres.ts). */
+      sharedDatabase?: { url: string; adminUrl: string };
+    }
+  | ({ mode: 'live' } & z.infer<typeof live>);
 
 export function readConfig(env: NodeJS.ProcessEnv = process.env): Config {
   const mode = env.APP_MODE ?? 'demo';
-  if (mode === 'demo') return { mode };
+  if (mode === 'demo') {
+    const url = env.DEMO_DATABASE_URL;
+    if (!url) return { mode };
+    if (!url.startsWith('postgres'))
+      throw new Error('DEMO_DATABASE_URL must be a PostgreSQL URL.');
+    return {
+      mode,
+      sharedDatabase: { url, adminUrl: env.DEMO_DATABASE_URL_UNPOOLED || url },
+    };
+  }
   if (mode !== 'live') throw new Error('APP_MODE must be demo or live');
   const parsed = live.safeParse(env);
   if (!parsed.success)

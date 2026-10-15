@@ -31,7 +31,7 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
       - run: docker compose up -d --wait
-      - run: RUN_POSTGRES_TESTS=1 npx vitest run tests/postgres.test.ts
+      - run: RUN_POSTGRES_TESTS=1 npx vitest run tests/postgres.test.ts tests/demo-postgres.test.ts
       - if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:

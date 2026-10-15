@@ -3,7 +3,12 @@ import { pgDatabase, type Database } from './db';
 import type { ExtractionProvider } from '../core/invoice';
 import type { Deps } from './service';
 
-export type Runtime = { config: Config; deps: Deps };
+export type Runtime = {
+  config: Config;
+  deps: Deps;
+  /** Shared demo database only: re-seed if stale, or always with force. */
+  refreshDemo?: (force?: boolean) => Promise<void>;
+};
 
 async function provider(config: Config): Promise<ExtractionProvider> {
   if (config.mode === 'demo')
@@ -50,6 +55,22 @@ async function init(): Promise<Runtime> {
   const extraction = await provider(config);
   let db: Database;
   let today: () => string;
+  if (config.mode === 'demo' && config.sharedDatabase) {
+    // One database for every server instance (serverless hosts).
+    const { openSharedDemo } = await import('./demo-postgres');
+    today = () => DEMO_TODAY;
+    const shared = await openSharedDemo(
+      config.sharedDatabase.url,
+      config.sharedDatabase.adminUrl,
+      extraction,
+      today,
+    );
+    return {
+      config,
+      deps: { db: shared.db, provider: extraction, today },
+      refreshDemo: shared.refresh,
+    };
+  }
   if (config.mode === 'demo') {
     // In-process PostgreSQL seeded on start; resets when the server restarts.
     const { createPgliteDatabase } = await import('./schema');
@@ -79,6 +100,7 @@ export function runtime(): Promise<Runtime> {
 export async function resetDemo() {
   const current = await runtime();
   if (current.config.mode !== 'demo') throw new Error('reset is demo-only');
+  if (current.refreshDemo) return current.refreshDemo(true);
   g.__invoiceRuntime = undefined;
   await current.deps.db.close().catch(() => {});
   return runtime();

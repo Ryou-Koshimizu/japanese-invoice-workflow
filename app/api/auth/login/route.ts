@@ -60,7 +60,9 @@ export const POST = route(
       .toLowerCase()
       .slice(0, 200);
     const password = String(body.password ?? '').slice(0, 200);
-    const { config, deps } = await runtime();
+    const { config, deps, refreshDemo } = await runtime();
+    // Shared public demo: start each day's visitors from the original data.
+    await refreshDemo?.();
     const keys: [string, number][] = [
       [`address:${clientAddress(request)}`, ADDRESS_LIMIT],
     ];

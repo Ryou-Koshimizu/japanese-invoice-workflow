@@ -22,13 +22,25 @@ const csp = [
 
 const config: NextConfig = {
   poweredByHeader: false,
-  serverExternalPackages: ['pg', '@electric-sql/pglite', 'pdfjs-dist'],
+  // scripts/vercel-build.mjs runs the app as one Node server (see ADR 003).
+  output: process.env.NEXT_OUTPUT === 'standalone' ? 'standalone' : undefined,
+  serverExternalPackages: [
+    'pg',
+    '@electric-sql/pglite',
+    'pdfjs-dist',
+    '@napi-rs/canvas',
+  ],
   outputFileTracingIncludes: {
     '/**': [
       './db/schema.sql',
       './fixtures/**',
       './eval/cases.json',
       './eval/invoices/**',
+      // pdf.js loads its worker and its DOMMatrix/Path2D polyfill at runtime,
+      // which file tracing cannot see; without them serverless hosts cannot
+      // open PDFs.
+      './node_modules/pdfjs-dist/legacy/build/pdf.worker.mjs',
+      './node_modules/@napi-rs/**',
     ],
   },
   async headers() {

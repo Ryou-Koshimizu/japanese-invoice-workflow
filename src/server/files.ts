@@ -71,7 +71,14 @@ export async function inspectUpload(
       const doc = await loadPdf(bytes);
       pages = doc.numPages;
       await doc.destroy();
-    } catch {
+    } catch (e) {
+      console.error(
+        JSON.stringify({
+          event: 'pdf_load_failed',
+          name: (e as Error)?.name,
+          message: String((e as Error)?.message).slice(0, 200),
+        }),
+      );
       throw new AppError(
         400,
         'PDFを読み込めませんでした。暗号化や破損がないか確認してください。',
