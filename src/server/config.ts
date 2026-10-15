@@ -27,9 +27,19 @@ export function readConfig(env: NodeJS.ProcessEnv = process.env): Config {
     if (!url) return { mode };
     if (!url.startsWith('postgres'))
       throw new Error('DEMO_DATABASE_URL must be a PostgreSQL URL.');
+    // Managed hosts hand out sslmode=require. node-postgres treats it as
+    // verify-full today but will weaken it; keep certificate and host checks.
+    const strict = (u: string) =>
+      u.replace(
+        /([?&])sslmode=(prefer|require|verify-ca)\b/,
+        '$1sslmode=verify-full',
+      );
     return {
       mode,
-      sharedDatabase: { url, adminUrl: env.DEMO_DATABASE_URL_UNPOOLED || url },
+      sharedDatabase: {
+        url: strict(url),
+        adminUrl: strict(env.DEMO_DATABASE_URL_UNPOOLED || url),
+      },
     };
   }
   if (mode !== 'live') throw new Error('APP_MODE must be demo or live');
