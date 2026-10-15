@@ -36,10 +36,8 @@ export default async function AppLayout({
         <Nav role={s.role} todo={mine} />
         <div className="who">
           <b>{s.userName}</b>
-          {s.email}
-          <br />
+          <span className="who-email">{s.email}</span>
           <span className="role-chip">{roleLabels[s.role]}</span>
-          <br />
           <LogoutButton />
         </div>
       </aside>
@@ -48,7 +46,10 @@ export default async function AppLayout({
           <div className="demo-bar" role="note">
             <b>公開デモ</b>
             <span>
-              AIは呼び出さず、サンプル請求書は事前に用意した読み取り結果を使います。データはサーバー再起動で初期化されます。
+              AIは呼び出さず、サンプル請求書は事前に用意した読み取り結果を使います。
+              {config.sharedDatabase
+                ? 'データは1日ごと、または「デモを初期化」で元に戻ります。'
+                : 'データはサーバー再起動で初期化されます。'}
             </span>
             <LogoutButton label="別の役割でログイン" />
             {s.role === 'admin' && <ResetDemoButton />}

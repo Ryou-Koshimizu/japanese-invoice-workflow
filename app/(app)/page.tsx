@@ -27,6 +27,19 @@ export default async function Inbox({
   const approvedTotal = invoices
     .filter((i) => i.status === 'approved')
     .reduce((sum, i) => sum + (i.total ?? 0), 0);
+  type Row = (typeof invoices)[number];
+  const status = (i: Row) => (
+    <span className={`status s-${i.status}`}>{statusLabels[i.status]}</span>
+  );
+  const flags = (i: Row) => (
+    <span className="flags">
+      {i.errors > 0 && <span className="flag e">エラー {i.errors}</span>}
+      {i.warnings > 0 && <span className="flag w">警告 {i.warnings}</span>}
+      {i.status !== 'uploaded' && !i.errors && !i.warnings && (
+        <span className="meta-line">問題なし</span>
+      )}
+    </span>
+  );
   return (
     <>
       <div className="page-head">
@@ -92,11 +105,11 @@ export default async function Inbox({
             <table className="list">
               <thead>
                 <tr>
-                  <th>状態</th>
+                  <th className="hide-sm">状態</th>
                   <th>発行者 / ファイル</th>
                   <th className="hide-sm">請求日</th>
                   <th className="right">請求金額</th>
-                  <th>検証</th>
+                  <th className="hide-sm">検証</th>
                   <th className="hide-sm">登録者</th>
                   <th className="hide-sm">更新</th>
                 </tr>
@@ -104,34 +117,21 @@ export default async function Inbox({
               <tbody>
                 {shown.map((i) => (
                   <tr key={i.id}>
-                    <td>
-                      <span className={`status s-${i.status}`}>
-                        {statusLabels[i.status]}
-                      </span>
-                    </td>
+                    <td className="hide-sm">{status(i)}</td>
                     <td>
                       <a className="row-link" href={`/invoices/${i.id}`}>
                         {i.vendor ?? '（未読み取り）'}
                       </a>
                       <div className="meta-line">{i.file_name}</div>
+                      {/* Narrow screens fold the state and checks in here. */}
+                      <div className="row-meta show-sm">
+                        {status(i)}
+                        {flags(i)}
+                      </div>
                     </td>
                     <td className="hide-sm num">{i.issue_date ?? '—'}</td>
                     <td className="right num">{yen(i.total)}</td>
-                    <td>
-                      <span className="flags">
-                        {i.errors > 0 && (
-                          <span className="flag e">エラー {i.errors}</span>
-                        )}
-                        {i.warnings > 0 && (
-                          <span className="flag w">警告 {i.warnings}</span>
-                        )}
-                        {i.status !== 'uploaded' &&
-                          !i.errors &&
-                          !i.warnings && (
-                            <span className="meta-line">問題なし</span>
-                          )}
-                      </span>
-                    </td>
+                    <td className="hide-sm">{flags(i)}</td>
                     <td className="hide-sm">{i.uploader_name}</td>
                     <td className="hide-sm meta-line">
                       {jstDateTime(i.updated_at)}
