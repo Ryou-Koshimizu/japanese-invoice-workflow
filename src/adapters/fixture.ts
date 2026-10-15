@@ -9,6 +9,11 @@ type FixtureFile = {
   note?: string;
 }[];
 
+const known = new Set((fixtures as FixtureFile).map((f) => f.sha256));
+
+/** Public demo: only the bundled fictional sample invoices are accepted. */
+export const isDemoSample = (sha256: string) => known.has(sha256);
+
 /**
  * Public demo provider: returns prepared extraction results for the bundled
  * sample invoices, keyed by file hash. It makes no AI call; results are
