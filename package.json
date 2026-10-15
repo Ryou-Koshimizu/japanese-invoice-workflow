@@ -15,7 +15,6 @@
     "db:up": "docker compose up -d --wait",
     "invoices:generate": "tsx scripts/generate-invoices.ts",
     "eval": "tsx --env-file=.env.local scripts/eval.ts",
-    "extract": "tsx --env-file=.env.local scripts/extract.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "predev": "node scripts/copy-pdf-worker.mjs",

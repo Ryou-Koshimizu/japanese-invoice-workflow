@@ -11,7 +11,7 @@ import {
 import { AppError } from '../server/db';
 import { extractionInstructions } from './prompt';
 
-// Adapted from japanese-data-agent: runs the official Codex CLI with the
+// Adapted from github.com/Ryou-Koshimizu/japanese-data-agent: runs the official Codex CLI with the
 // operator's ChatGPT login, read-only sandbox, tools disabled, schema output.
 export type CodexOptions = {
   model: string;

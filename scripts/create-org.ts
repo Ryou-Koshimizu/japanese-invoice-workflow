@@ -1,5 +1,5 @@
 // Creates an organization and its first admin in a live database.
-//   ORG_ADMIN_PASSWORD='...' npm run org:create -- --org="株式会社〇〇" --email=a@b.jp --name="山田 太郎"
+//   ORG_ADMIN_PASSWORD='...' npm run org:create -- --org="株式会社〇〇" --email=you@example.com --name="山田 太郎"
 import pg from 'pg';
 import { hashPassword } from '../src/server/auth';
 
