@@ -27,7 +27,7 @@
 | 誤りを含む請求書の検出（正解データ、AIなし） | 6/6                                                                                                                                         |
 | **実AIの抽出精度・時間・費用**               | **未測定**。`npm run eval` で40枚を測定する（下記）                                                                                         |
 
-詳しくは [検証記録](docs/verification.md)。
+詳しくは [検証記録](docs/verification.md)。提出・レビュー向けの説明は [業務シナリオと導入条件](docs/freelance-submission.md)。
 
 ## 試す
 
@@ -83,6 +83,15 @@ npm run eval   # EXTRACTION_PROVIDER=claude または codex
 
 金額は1円単位、日付・登録番号は完全一致、名称は空白と記号の違いを許容して項目ごとに採点し、必須項目がすべて正しかった割合と、誤りを含む請求書をAI経由でも検出できたかを出します。結果はモデル名・コミット・データとプロンプトのハッシュとともに `reports/` に保存します。デモ用データやモックの結果は精度に数えません。
 
+## セキュリティ
+
+- 権限・組織の分離・承認フロー・監査ログはデータベースで強制し、アプリは制限ロールでのみ接続します（[脅威と対策](docs/security.md)）
+- CSP・HSTS等のセキュリティヘッダー、Originの検査、アカウント単位のログイン試行制限、先頭バイトによるファイル判定
+- GitHub ActionsはコミットSHAで固定し最小権限。CodeQL・Dependabot・依存関係の審査・Secret scanningを有効化
+- 公開前に、全履歴の秘密情報・個人情報・画像とPDFのメタデータ・登録番号の実在を点検しました（[公開前のセキュリティ確認](docs/security-publication.md)）
+
+脆弱性の報告は [SECURITY.md](SECURITY.md) の手順で非公開でお願いします。
+
 ## 開発
 
 ```sh
@@ -95,4 +104,4 @@ npm run db:up && RUN_POSTGRES_TESTS=1 npx vitest run tests/postgres.test.ts
 
 ## License
 
-MIT。請求書・会社・人物・登録番号はすべて架空です。
+MIT。請求書・会社・人物はすべて架空です。登録番号は乱数で作った架空の番号で、国税庁の公表サイトで登録がないことを確認済みです（検査数字の計算確認にだけ、国税庁自身の公表された法人番号を使っています）。

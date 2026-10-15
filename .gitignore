@@ -11,3 +11,8 @@ test-results/
 .local-data/
 public/pdf.worker.min.mjs
 next-env.d.ts
+.vercel/
+.DS_Store
+coverage/
+*.pem
+*.key

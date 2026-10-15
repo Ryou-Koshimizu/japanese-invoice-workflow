@@ -7,7 +7,7 @@ npm run db:up            # Docker Composeで PostgreSQL 17 を起動し、スキ
 cp .env.example .env.local
 ```
 
-`.env.local` の `APP_MODE=live` にし、AIの設定を入れます。アプリは `invoice_app`（スーパーユーザーではなく、`app_user` のメンバー）で接続します。起動時にこの条件を満たさない接続は拒否します。
+`.env.local` の `APP_MODE=live` にし、`APP_ORIGIN`（ブラウザで開くURLの `https://ホスト名`。ローカルは `http://127.0.0.1:3000`）とAIの設定を入れます。`APP_ORIGIN` は同一オリジンの検査、cookieのSecure属性、Stripeの戻り先に使います。アプリは `invoice_app`（スーパーユーザーではなく、`app_user` のメンバーで、テーブルを所有しないロール）で接続します。起動時にこの条件を満たさない接続は拒否します。
 
 Dockerを使わない場合は、任意のPostgreSQL（Supabase、Neon等）に `db/schema.sql` を適用し、`app_user` のメンバーのログインロールを作って `DATABASE_URL` に設定してください。
 
@@ -25,7 +25,7 @@ ORG_ADMIN_PASSWORD='10文字以上' npm run org:create -- --org="株式会社〇
 | Claude               | `EXTRACTION_PROVIDER=claude`、`ANTHROPIC_API_KEY`、`ANTHROPIC_MODEL` | PDF・PNG・JPEG |
 | ChatGPT（Codex CLI） | `EXTRACTION_PROVIDER=codex`、`CODEX_MODEL`、`codex login` 済み       | PNG・JPEG      |
 
-Codexは一時ディレクトリの読み取り専用サンドボックスで、ツール・シェル・ブラウザ等を無効にして構造化JSONだけを受け取ります（1本目のリポジトリと同じ方式）。この環境ではCodex CLIでの画像入力を実行して確認していません。
+Codexは一時ディレクトリの読み取り専用サンドボックスで、ツール・シェル・ブラウザ等を無効にして構造化JSONだけを受け取ります。この環境ではCodex CLIでの画像入力を実行して確認していません。
 
 ## 4. 評価
 
