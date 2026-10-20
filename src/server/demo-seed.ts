@@ -86,12 +86,7 @@ export async function seedDemo(
   // Waiting for approval: a fee with withholding tax, submitted by the member.
   const fee = await up('inv-23.pdf');
   await extractInvoice(deps, member, fee);
-  await submitInvoice(
-    deps,
-    member,
-    fee,
-    '個人事業者の登録番号のため検査数字の警告は問題なし（登録通知で確認済み）',
-  );
+  await submitInvoice(deps, member, fee, '');
   // Approved and ready to export.
   const approvedId = await up('inv-02.pdf');
   await extractInvoice(deps, member, approvedId);

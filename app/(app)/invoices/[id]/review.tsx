@@ -718,7 +718,7 @@ export default function Review({
                             id="note"
                             value={note}
                             onChange={(e) => setNote(e.target.value)}
-                            placeholder="例：個人事業者の登録番号のため検査数字の警告は問題なし"
+                            placeholder="例：登録番号は公表サイトで照会し、原本どおりと確認済み"
                           />
                         </div>
                       )}

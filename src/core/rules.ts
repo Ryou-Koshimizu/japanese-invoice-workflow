@@ -14,6 +14,16 @@ export function corporateCheckDigit(base12: string): number {
   return 9 - (sum % 9);
 }
 
+/**
+ * A corporation's registration number is "T" + its corporate number, which
+ * always carries a valid check digit. A sole proprietor's number is assigned
+ * separately, so the check digit only applies when the issuer is a corporation.
+ */
+const corporateForm =
+  /(株式会社|有限会社|合同会社|合資会社|合名会社|一般社団法人|一般財団法人|公益社団法人|公益財団法人|特定非営利活動法人|NPO法人|医療法人|社会福祉法人|学校法人|宗教法人|弁護士法人|税理士法人|監査法人|司法書士法人|行政書士法人|社会保険労務士法人|[(（]株[)）]|[(（]有[)）]|[(（]同[)）]|㈱|㈲)/;
+export const isCorporateName = (name: string | null) =>
+  !!name && corporateForm.test(name.normalize('NFKC').replace(/\s/g, ''));
+
 /** Withholding tax on fees paid to individuals (所得税及び復興特別所得税). */
 export function expectedWithholding(base: number): number {
   return base <= 1_000_000
@@ -67,12 +77,15 @@ export function validateInvoice(d: InvoiceData, ctx: RuleContext): Issue[] {
         'registrationNumber',
         '登録番号は「T」と数字13桁です。',
       );
-    } else if (corporateCheckDigit(reg.slice(2)) !== Number(reg[1])) {
+    } else if (
+      isCorporateName(d.vendorName) &&
+      corporateCheckDigit(reg.slice(2)) !== Number(reg[1])
+    ) {
       add(
         'REG_CHECK_DIGIT',
         'warning',
         'registrationNumber',
-        '法人番号の検査数字と一致しません。個人事業者の番号でなければ読み取り誤りの可能性があります。',
+        '法人の登録番号（T＋法人番号）の検査数字と一致しません。読み取り誤りの可能性があります。',
       );
     }
   }

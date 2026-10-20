@@ -84,6 +84,13 @@ export type CaseResult = {
   fullyCorrect: boolean;
   /** For seeded-mistake invoices: were all expected issues raised on the AI output? */
   detected: boolean | null;
+  /**
+   * Issues raised although the AI read every required field correctly and the
+   * invoice was not seeded with that mistake (false alarms).
+   */
+  unexpectedIssues: string[];
+  /** Every rule code raised on the AI output. */
+  issues: string[];
   elapsedMs: number;
   usage: { inputTokens: number; outputTokens: number };
   error?: string;
@@ -108,14 +115,19 @@ export function scoreCase(
     scoredFields.map((f) => [f, got ? compareField(f, got, c.truth) : false]),
   ) as Record<ScoredField, boolean>;
   const found = got ? validateInvoice(got, { today }).map((i) => i.code) : [];
+  const fullyCorrect = requiredFields.every((f) => fields[f]);
   return {
     id: c.id,
     group: c.group,
     fields,
-    fullyCorrect: requiredFields.every((f) => fields[f]),
+    fullyCorrect,
     detected: c.expectedIssues.length
       ? c.expectedIssues.every((e) => found.includes(e))
       : null,
+    unexpectedIssues: fullyCorrect
+      ? found.filter((code) => !c.expectedIssues.includes(code))
+      : [],
+    issues: found,
     ...meta,
   };
 }
@@ -148,6 +160,10 @@ export function summarize(results: CaseResult[]) {
     seededMistakesDetected: rate(
       results.filter((r) => r.detected !== null).map((r) => r.detected!),
     ),
+    falseAlarms: results.filter((r) => r.unexpectedIssues.length).length,
+    misreadsWithoutIssue: results.filter(
+      (r) => !r.error && !r.fullyCorrect && !r.issues.length,
+    ).length,
     medianMs: median(ok.map((r) => r.elapsedMs)),
     meanMs: ok.length
       ? ok.reduce((s, r) => s + r.elapsedMs, 0) / ok.length

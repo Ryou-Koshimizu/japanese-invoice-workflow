@@ -45,6 +45,24 @@ describe('registration number', () => {
     );
     expect(codes({})).toEqual([]);
   });
+  it('applies the corporate check digit only to corporations', () => {
+    const wrong = 'T8000012050002';
+    for (const vendorName of [
+      '株式会社テスト',
+      'テスト（株）',
+      '一般社団法人テスト',
+      'NPO法人テスト',
+    ])
+      expect(
+        codes({ vendorName, registrationNumber: wrong }),
+        vendorName,
+      ).toContain('REG_CHECK_DIGIT');
+    for (const vendorName of ['デザイン事務所 佐々木葵', '翻訳 田中結衣'])
+      expect(
+        codes({ vendorName, registrationNumber: wrong }),
+        vendorName,
+      ).toEqual([]);
+  });
 });
 
 describe('tax and totals', () => {
@@ -149,13 +167,10 @@ describe('eval set', () => {
       for (const e of c.expectedIssues) expect(found, c.id).toContain(e);
     }
   });
-  it('raises no errors on the clean invoices', () => {
-    for (const c of cases.filter((x) => x.group !== 'error')) {
-      const issues = validateInvoice(c.truth, ctx);
-      expect(
-        issues.filter((i) => i.code !== 'REG_CHECK_DIGIT'),
-        c.id,
-      ).toEqual([]);
+  it('raises nothing on the clean invoices and only the seeded mistake on the others', () => {
+    for (const c of cases) {
+      const found = validateInvoice(c.truth, ctx).map((i) => i.code);
+      expect(found.sort(), c.id).toEqual([...c.expectedIssues].sort());
     }
   });
 });
