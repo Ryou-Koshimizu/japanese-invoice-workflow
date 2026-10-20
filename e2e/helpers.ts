@@ -15,6 +15,16 @@ export async function loginAs(page: Page, who: RegExp) {
  * (the floating background, the scanning light) are ignored.
  */
 export async function settle(page: Page) {
+  // Jump every finite animation to its end state instead of waiting it out
+  // in real time (slow CI machines can take minutes otherwise). Frames in
+  // between are checked separately in motion-a11y.spec.ts.
+  await page.evaluate(() => {
+    for (const a of document.getAnimations()) {
+      const t = a.effect?.getComputedTiming();
+      if (a.playState === 'running' && t && t.iterations !== Infinity)
+        a.finish();
+    }
+  });
   await page.waitForFunction(
     () =>
       document

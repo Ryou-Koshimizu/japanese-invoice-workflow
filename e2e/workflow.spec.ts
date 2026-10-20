@@ -131,24 +131,36 @@ test('スマホ幅で横にはみ出さない', async ({ page }) => {
   ).toBeLessThanOrEqual(390);
 });
 
-test('すべての画面でWCAG 2.1 A/AAの違反が0件（パソコン幅・スマホ幅・メニューを開いた状態）', async ({
-  page,
-}) => {
-  test.setTimeout(240_000);
-  for (const size of [
-    { width: 1440, height: 900 },
-    { width: 390, height: 844 },
-  ]) {
+// Every screen, every role, at desktop and phone width: one test per width
+// and role so a slow machine never runs out of time on the whole set.
+for (const size of [
+  { width: 1440, height: 900 },
+  { width: 390, height: 844 },
+]) {
+  test(`WCAG 2.1 A/AAの違反が0件：入口（${size.width}px）`, async ({
+    page,
+  }) => {
     await page.setViewportSize(size);
     await page.context().clearCookies();
     await page.goto('/login');
     await a11y(page);
-    for (const who of [/佐藤 美咲/, /鈴木 健/, /高橋 由紀/]) {
+  });
+  for (const [label, who] of [
+    ['担当者', /佐藤 美咲/],
+    ['承認者', /鈴木 健/],
+    ['管理者', /高橋 由紀/],
+  ] as const) {
+    test(`WCAG 2.1 A/AAの違反が0件：${label}の全画面（${size.width}px、メニューを開いた状態も）`, async ({
+      page,
+    }) => {
+      test.setTimeout(180_000);
+      await page.setViewportSize(size);
       await loginAs(page, who);
       await a11y(page);
       const invoices = await page
         .locator('a.row-link')
         .evaluateAll((as) => as.map((a) => a.getAttribute('href')!));
+      expect(invoices.length).toBeGreaterThan(0);
       for (const href of invoices) {
         await page.goto(href);
         await a11y(page);
@@ -162,6 +174,6 @@ test('すべての画面でWCAG 2.1 A/AAの違反が0件（パソコン幅・ス
         await toggle.click();
         await a11y(page);
       }
-    }
+    });
   }
-});
+}
