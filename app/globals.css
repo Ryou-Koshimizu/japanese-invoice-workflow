@@ -1948,12 +1948,16 @@ table.list {
   max-width: 700px;
 }
 .hero h1 {
-  font-size: clamp(20px, min(7.4vw, 6.2svh, 3.6vw + 10px), 48px);
+  /* Sized so the longer line (15 characters) fits the column on one line. */
+  font-size: clamp(19px, min(calc((100vw - 44px) / 15.8), 6.2svh), 46px);
   line-height: 1.3;
   letter-spacing: 0.01em;
 }
 .hero h1 {
   letter-spacing: 0;
+}
+.hero h1 .line {
+  display: block;
 }
 .hero h1 .phrase {
   display: inline-block;
@@ -2289,6 +2293,9 @@ table.list {
   .hero {
     grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   }
+  .hero h1 {
+    font-size: clamp(20px, min(2.8vw, 6.2svh), 42px);
+  }
   .showcase {
     display: block;
   }
@@ -2453,6 +2460,13 @@ table.list {
   }
 }
 @media (max-height: 520px) and (min-width: 520px) {
+  .hero .lead {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .hero-links a {
+    min-height: 24px;
+  }
   .demo-users {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }

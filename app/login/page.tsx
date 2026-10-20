@@ -35,21 +35,24 @@ export default async function LoginPage() {
           <section className="hero" aria-labelledby="hero-heading">
             <div className="hero-copy">
               <h1 id="hero-heading" className="rise">
-                <span className="phrase">請求書を</span>
-                <span className="phrase">
-                  <em>読んで、</em>
+                <span className="line">
+                  <span className="phrase">請求書を</span>
+                  <span className="phrase">
+                    <em>AIが読み取り、</em>
+                  </span>
                 </span>
-                <span className="phrase">
-                  <em>確かめて、</em>
+                <span className="line">
+                  <span className="phrase">税額と登録番号を</span>
+                  <span className="phrase">
+                    <em>ルールで検証。</em>
+                  </span>
                 </span>
-                <span className="phrase">承認と</span>
-                <span className="phrase">仕訳まで。</span>
               </h1>
               <p
                 className="lead rise"
                 style={{ '--i': 1 } as React.CSSProperties}
               >
-                架空の「株式会社サンプル商事」の経理部です。役割を選ぶと、そのままログインします。サンプルには事前に用意した読み取り結果（正解データから作成）を使い、AIは呼び出しません。
+                担当者の確認・承認者の承認・仕訳CSVの出力までを、権限と監査ログつきで処理します。公開デモは架空の「株式会社サンプル商事」で、AIは呼ばずに正解データから作った読み取り結果を使います。
               </p>
               <LoginForm demoPassword={DEMO_PASSWORD} demoUsers={users} />
               <div className="hero-links">
