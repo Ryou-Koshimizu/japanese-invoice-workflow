@@ -256,8 +256,8 @@ describe('workflow enforced by the database itself', () => {
     const id = await uploadInvoice(
       deps,
       s.member,
-      'inv-30.jpg',
-      file('inv-30.jpg'),
+      'inv-39.pdf',
+      file('inv-39.pdf'),
     );
     await extractInvoice(deps, s.member, id);
     await expect(submitInvoice(deps, s.member, id, '')).rejects.toMatchObject({

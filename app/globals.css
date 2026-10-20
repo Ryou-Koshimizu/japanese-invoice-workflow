@@ -1605,16 +1605,22 @@ table.list {
 }
 /* The save bar floats at the bottom of the screen while the form is open. */
 .save-bar {
-  position: sticky;
-  bottom: 14px;
-  z-index: 5;
   margin-top: 20px;
   padding: 10px;
   border-radius: 24px;
-  background: rgb(255 250 243 / 0.94);
-  box-shadow: var(--clay-out-lift), var(--clay-in);
+  background: var(--clay-2);
+  box-shadow: var(--well);
   display: grid;
   gap: 10px;
+}
+/* While there are unsaved changes, the bar floats at the bottom of the screen. */
+.save-bar.floating {
+  position: sticky;
+  bottom: 14px;
+  z-index: 5;
+  background: rgb(255 250 243 / 0.96);
+  box-shadow: var(--clay-out-lift), var(--clay-in);
+  animation: pop-in 600ms var(--jelly) both;
 }
 .timeline {
   list-style: none;

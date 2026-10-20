@@ -25,7 +25,9 @@ ORG_ADMIN_PASSWORD='10文字以上' npm run org:create -- --org="株式会社〇
 | Claude               | `EXTRACTION_PROVIDER=claude`、`ANTHROPIC_API_KEY`、`ANTHROPIC_MODEL` | PDF・PNG・JPEG |
 | ChatGPT（Codex CLI） | `EXTRACTION_PROVIDER=codex`、`CODEX_MODEL`、`codex login` 済み       | PNG・JPEG      |
 
-Codexは一時ディレクトリの読み取り専用サンドボックスで、ツール・シェル・ブラウザ等を無効にして構造化JSONだけを受け取ります。この環境ではCodex CLIでの画像入力を実行して確認していません。
+Codexは一時ディレクトリの読み取り専用サンドボックスで、ツール・シェル・ブラウザ等を無効にして構造化JSONだけを受け取ります。2026-10-20にmacOSのCodex CLI 0.162.1で、40枚の画像の読み取りを確認しています（[検証記録](verification.md)）。
+
+どちらのプロバイダーも、1回の読み取りで2回独立に読ませて読み比べます（食い違えば3回目、[ADR 005](adr/005-consensus-reading.md)）。AIの呼び出しは1枚につき9回までです。
 
 ## 4. 評価
 
@@ -35,7 +37,7 @@ npm run eval -- --ids=inv-29,inv-35   # 一部（レポートは部分評価と�
 npm run eval:pipeline                 # AIを使わない仕組みの確認（精度ではない）
 ```
 
-`reports/eval-*.json` に、モデル・コミット・評価データとプロンプトのSHA-256・項目別の正誤・時間・トークン数を保存します。3回続けて失敗すると途中結果を保存して止まります。
+`reports/eval-*.json` に、モデル・コミット・評価データとプロンプトのSHA-256・項目別の正誤・読み違えた項目の値・正しい請求書への誤検出・時間・トークン数を保存します。3回続けて失敗すると途中結果を保存して止まります。
 
 ## 5. Stripe（任意・テストモード）
 
@@ -60,12 +62,12 @@ vercel deploy --prod
 ## 7. テスト
 
 ```sh
-npm run typecheck && npm test && npm run build
-npx playwright install chromium && npm run test:e2e
-RUN_POSTGRES_TESTS=1 npx vitest run tests/postgres.test.ts tests/demo-postgres.test.ts   # db:up の後
+npm run format:check && npm run typecheck && npm run build
+RUN_POSTGRES_TESTS=1 npm test                                # db:up の後。単体・DB・実PostgreSQL
+npx playwright install chromium webkit && npm run test:e2e   # 画面・axe・25種の画面の大きさ（Chromium・WebKit）
 ```
 
-Playwrightのブラウザを取得できない環境では、`CHROMIUM_EXECUTABLE_PATH` に任意のChromiumを指定できます。
+Docker以外のPostgreSQLで試すときは、`db/schema.sql` と `db/local-roles.sql` を適用し、`DATABASE_URL`（`invoice_app`）と `ADMIN_DATABASE_URL`（所有者）を指定します。画面のテストはポート3012でサーバーを起動します（`E2E_PORT` で変更可）。Chromiumを自分で用意する場合は `CHROMIUM_EXECUTABLE_PATH` を指定します。
 
 ## 8. 評価用の請求書を作り直す
 

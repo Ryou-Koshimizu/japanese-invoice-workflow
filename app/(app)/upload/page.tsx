@@ -27,20 +27,23 @@ export default async function UploadPage() {
       truth: { vendorName: string };
     }[];
   };
+  const imagesOnly =
+    config.mode === 'live' && config.EXTRACTION_PROVIDER === 'codex';
   const samples = manifest.cases
     .filter((c) =>
       [
         'inv-03',
         'inv-15',
         'inv-26',
-        'inv-31',
+        'inv-29',
         'inv-36',
         'inv-37',
         'inv-38',
       ].includes(c.id),
     )
     .map((c) => ({
-      file: c.files.pdf ?? c.files.image,
+      // ChatGPT (Codex) reads images only, so offer the PNG/JPEG version.
+      file: imagesOnly ? c.files.image : (c.files.pdf ?? c.files.image),
       vendor: c.truth.vendorName,
       group: groupLabels[c.group],
       note: c.note,

@@ -2359,12 +2359,7 @@
           "taxRate": 10
         }
       ],
-      "uncertain": [
-        {
-          "field": "registrationNumber",
-          "reason": "画像がかすれていて数字の判読に自信がありません。"
-        }
-      ],
+      "uncertain": [],
       "accountHint": null
     }
   },
@@ -2405,12 +2400,7 @@
           "taxRate": 10
         }
       ],
-      "uncertain": [
-        {
-          "field": "registrationNumber",
-          "reason": "画像がかすれていて数字の判読に自信がありません。"
-        }
-      ],
+      "uncertain": [],
       "accountHint": null
     }
   },
@@ -2456,12 +2446,7 @@
           "taxRate": 10
         }
       ],
-      "uncertain": [
-        {
-          "field": "registrationNumber",
-          "reason": "画像がかすれていて数字の判読に自信がありません。"
-        }
-      ],
+      "uncertain": [],
       "accountHint": null
     }
   },
@@ -2507,12 +2492,7 @@
           "taxRate": 10
         }
       ],
-      "uncertain": [
-        {
-          "field": "registrationNumber",
-          "reason": "画像がかすれていて数字の判読に自信がありません。"
-        }
-      ],
+      "uncertain": [],
       "accountHint": null
     }
   },
@@ -2558,12 +2538,7 @@
           "taxRate": 10
         }
       ],
-      "uncertain": [
-        {
-          "field": "registrationNumber",
-          "reason": "画像がかすれていて数字の判読に自信がありません。"
-        }
-      ],
+      "uncertain": [],
       "accountHint": null
     }
   },

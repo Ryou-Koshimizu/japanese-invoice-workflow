@@ -1,0 +1,1088 @@
+{
+  "status": "complete",
+  "fullSuite": true,
+  "provider": "codex:gpt-6.1-sol",
+  "model": "gpt-6.1-sol",
+  "commit": "c1e58c156f105a1d96f22f307c3e8e9a7c2568de",
+  "casesSha256": "4cd9f28907c9a98362d67845f846f9f8c256d159f4fd00dd490ad9d8478aafdf",
+  "promptSha256": "4e72a7317cc341fbdf91212dbddd4d842d9c3d59e6139d0f50c306364d699797",
+  "referenceDate": "2026-10-14",
+  "timestamp": "2026-10-20T11:24:41.526Z",
+  "costJpy": null,
+  "summary": {
+    "cases": 40,
+    "failedCalls": 0,
+    "fieldAccuracy": {
+      "vendorName": 0.975,
+      "registrationNumber": 1,
+      "invoiceNumber": 1,
+      "issueDate": 1,
+      "dueDate": 1,
+      "recipientName": 1,
+      "amountBasis": 1,
+      "taxBreakdown": 1,
+      "withholdingTax": 1,
+      "totalAmount": 1,
+      "lineItems": 1
+    },
+    "fullyCorrectRate": 0.975,
+    "byGroup": {
+      "standard": 0.9166666666666666,
+      "reduced": 1,
+      "withholding": 1,
+      "hard": 1,
+      "error": 1
+    },
+    "seededMistakesDetected": 1,
+    "falseAlarms": 0,
+    "misreadsWithoutIssue": 1,
+    "medianMs": 9653.5,
+    "meanMs": 9929.825,
+    "tokens": {
+      "input": 384535,
+      "output": 8765
+    }
+  },
+  "results": [
+    {
+      "id": "inv-01",
+      "group": "standard",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 8081,
+      "usage": {
+        "inputTokens": 9575,
+        "outputTokens": 182
+      }
+    },
+    {
+      "id": "inv-02",
+      "group": "standard",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 7218,
+      "usage": {
+        "inputTokens": 9578,
+        "outputTokens": 143
+      }
+    },
+    {
+      "id": "inv-03",
+      "group": "standard",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 9498,
+      "usage": {
+        "inputTokens": 9572,
+        "outputTokens": 252
+      }
+    },
+    {
+      "id": "inv-04",
+      "group": "standard",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 8969,
+      "usage": {
+        "inputTokens": 9578,
+        "outputTokens": 165
+      }
+    },
+    {
+      "id": "inv-05",
+      "group": "standard",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 8728,
+      "usage": {
+        "inputTokens": 9581,
+        "outputTokens": 184
+      }
+    },
+    {
+      "id": "inv-06",
+      "group": "standard",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 10750,
+      "usage": {
+        "inputTokens": 9575,
+        "outputTokens": 211
+      }
+    },
+    {
+      "id": "inv-07",
+      "group": "standard",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 8894,
+      "usage": {
+        "inputTokens": 9572,
+        "outputTokens": 200
+      }
+    },
+    {
+      "id": "inv-08",
+      "group": "standard",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 8312,
+      "usage": {
+        "inputTokens": 9572,
+        "outputTokens": 160
+      }
+    },
+    {
+      "id": "inv-09",
+      "group": "standard",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 8814,
+      "usage": {
+        "inputTokens": 9575,
+        "outputTokens": 158
+      }
+    },
+    {
+      "id": "inv-10",
+      "group": "standard",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 8925,
+      "usage": {
+        "inputTokens": 9575,
+        "outputTokens": 145
+      }
+    },
+    {
+      "id": "inv-11",
+      "group": "standard",
+      "fields": {
+        "vendorName": false,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": false,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 8019,
+      "usage": {
+        "inputTokens": 9575,
+        "outputTokens": 150
+      }
+    },
+    {
+      "id": "inv-12",
+      "group": "standard",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 9521,
+      "usage": {
+        "inputTokens": 9575,
+        "outputTokens": 184
+      }
+    },
+    {
+      "id": "inv-13",
+      "group": "reduced",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 10442,
+      "usage": {
+        "inputTokens": 9575,
+        "outputTokens": 221
+      }
+    },
+    {
+      "id": "inv-14",
+      "group": "reduced",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 12314,
+      "usage": {
+        "inputTokens": 9572,
+        "outputTokens": 245
+      }
+    },
+    {
+      "id": "inv-15",
+      "group": "reduced",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 9919,
+      "usage": {
+        "inputTokens": 9572,
+        "outputTokens": 228
+      }
+    },
+    {
+      "id": "inv-16",
+      "group": "reduced",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 10385,
+      "usage": {
+        "inputTokens": 9572,
+        "outputTokens": 224
+      }
+    },
+    {
+      "id": "inv-17",
+      "group": "reduced",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 10172,
+      "usage": {
+        "inputTokens": 9575,
+        "outputTokens": 301
+      }
+    },
+    {
+      "id": "inv-18",
+      "group": "reduced",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 10422,
+      "usage": {
+        "inputTokens": 9572,
+        "outputTokens": 302
+      }
+    },
+    {
+      "id": "inv-19",
+      "group": "reduced",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 9089,
+      "usage": {
+        "inputTokens": 9575,
+        "outputTokens": 202
+      }
+    },
+    {
+      "id": "inv-20",
+      "group": "reduced",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 10905,
+      "usage": {
+        "inputTokens": 9572,
+        "outputTokens": 331
+      }
+    },
+    {
+      "id": "inv-21",
+      "group": "reduced",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 8864,
+      "usage": {
+        "inputTokens": 9575,
+        "outputTokens": 200
+      }
+    },
+    {
+      "id": "inv-22",
+      "group": "reduced",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 9829,
+      "usage": {
+        "inputTokens": 9578,
+        "outputTokens": 202
+      }
+    },
+    {
+      "id": "inv-23",
+      "group": "withholding",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 8367,
+      "usage": {
+        "inputTokens": 9572,
+        "outputTokens": 146
+      }
+    },
+    {
+      "id": "inv-24",
+      "group": "withholding",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 10954,
+      "usage": {
+        "inputTokens": 9572,
+        "outputTokens": 142
+      }
+    },
+    {
+      "id": "inv-25",
+      "group": "withholding",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 11001,
+      "usage": {
+        "inputTokens": 9575,
+        "outputTokens": 170
+      }
+    },
+    {
+      "id": "inv-26",
+      "group": "withholding",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 10371,
+      "usage": {
+        "inputTokens": 9575,
+        "outputTokens": 260
+      }
+    },
+    {
+      "id": "inv-27",
+      "group": "withholding",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 9122,
+      "usage": {
+        "inputTokens": 9578,
+        "outputTokens": 146
+      }
+    },
+    {
+      "id": "inv-28",
+      "group": "withholding",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 9532,
+      "usage": {
+        "inputTokens": 9575,
+        "outputTokens": 144
+      }
+    },
+    {
+      "id": "inv-29",
+      "group": "hard",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 8779,
+      "usage": {
+        "inputTokens": 8236,
+        "outputTokens": 163
+      }
+    },
+    {
+      "id": "inv-30",
+      "group": "hard",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 11818,
+      "usage": {
+        "inputTokens": 8239,
+        "outputTokens": 351
+      }
+    },
+    {
+      "id": "inv-31",
+      "group": "hard",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 12413,
+      "usage": {
+        "inputTokens": 8239,
+        "outputTokens": 329
+      }
+    },
+    {
+      "id": "inv-32",
+      "group": "hard",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 9816,
+      "usage": {
+        "inputTokens": 8239,
+        "outputTokens": 262
+      }
+    },
+    {
+      "id": "inv-33",
+      "group": "hard",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 11099,
+      "usage": {
+        "inputTokens": 8236,
+        "outputTokens": 375
+      }
+    },
+    {
+      "id": "inv-34",
+      "group": "hard",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": null,
+      "unexpectedIssues": [],
+      "issues": [],
+      "elapsedMs": 11984,
+      "usage": {
+        "inputTokens": 8236,
+        "outputTokens": 352
+      }
+    },
+    {
+      "id": "inv-35",
+      "group": "error",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": true,
+      "unexpectedIssues": [],
+      "issues": ["TAX_CALC", "TOTAL_MISMATCH"],
+      "elapsedMs": 9212,
+      "usage": {
+        "inputTokens": 9575,
+        "outputTokens": 241
+      }
+    },
+    {
+      "id": "inv-36",
+      "group": "error",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": true,
+      "unexpectedIssues": [],
+      "issues": ["TOTAL_MISMATCH"],
+      "elapsedMs": 8193,
+      "usage": {
+        "inputTokens": 9578,
+        "outputTokens": 167
+      }
+    },
+    {
+      "id": "inv-37",
+      "group": "error",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": true,
+      "unexpectedIssues": [],
+      "issues": ["REG_FORMAT"],
+      "elapsedMs": 17437,
+      "usage": {
+        "inputTokens": 19150,
+        "outputTokens": 332
+      }
+    },
+    {
+      "id": "inv-38",
+      "group": "error",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": true,
+      "unexpectedIssues": [],
+      "issues": ["TAX_CALC"],
+      "elapsedMs": 9775,
+      "usage": {
+        "inputTokens": 9572,
+        "outputTokens": 200
+      }
+    },
+    {
+      "id": "inv-39",
+      "group": "error",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": true,
+      "unexpectedIssues": [],
+      "issues": ["WITHHOLDING"],
+      "elapsedMs": 9999,
+      "usage": {
+        "inputTokens": 9575,
+        "outputTokens": 229
+      }
+    },
+    {
+      "id": "inv-40",
+      "group": "error",
+      "fields": {
+        "vendorName": true,
+        "registrationNumber": true,
+        "invoiceNumber": true,
+        "issueDate": true,
+        "dueDate": true,
+        "recipientName": true,
+        "amountBasis": true,
+        "taxBreakdown": true,
+        "withholdingTax": true,
+        "totalAmount": true,
+        "lineItems": true
+      },
+      "fullyCorrect": true,
+      "detected": true,
+      "unexpectedIssues": [],
+      "issues": ["DUE_BEFORE_ISSUE"],
+      "elapsedMs": 9251,
+      "usage": {
+        "inputTokens": 9572,
+        "outputTokens": 166
+      }
+    }
+  ]
+}
