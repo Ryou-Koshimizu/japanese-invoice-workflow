@@ -694,9 +694,13 @@ h2 {
   animation: rise 760ms var(--spring-soft) both;
   animation-delay: calc(var(--i, 0) * 70ms + 60ms);
 }
+/*
+ * Motion never changes text colour or opacity, so every frame of every
+ * animation keeps the same contrast as the settled screen: things move,
+ * scale or are revealed with clip-path, but are always fully opaque.
+ */
 @keyframes rise {
   from {
-    opacity: 0;
     transform: translateY(22px) scale(0.97);
   }
 }
@@ -1368,11 +1372,7 @@ table.list {
 }
 @keyframes pop-in {
   0% {
-    opacity: 0;
     transform: scale(0.4);
-  }
-  40% {
-    opacity: 1;
   }
   100% {
     transform: scale(1);
@@ -1707,13 +1707,14 @@ table.list {
 }
 @keyframes stamp {
   0% {
-    opacity: 0;
+    clip-path: circle(0% at 50% 50%);
     transform: scale(2.6) rotate(-28deg);
   }
-  45% {
-    opacity: 1;
+  35% {
+    clip-path: circle(75% at 50% 50%);
   }
   100% {
+    clip-path: circle(75% at 50% 50%);
     transform: scale(1) rotate(-12deg);
   }
 }
@@ -1757,7 +1758,7 @@ table.list {
 }
 @keyframes fade {
   from {
-    opacity: 0;
+    background-color: transparent;
   }
 }
 .thud {
@@ -2163,34 +2164,34 @@ table.list {
 @keyframes chip {
   0%,
   6% {
-    opacity: 0;
-    transform: scale(0.3);
+    clip-path: inset(0 100% 0 0 round 999px);
+    transform: scale(0.6);
   }
   14%,
   88% {
-    opacity: 1;
+    clip-path: inset(0 0 0 0 round 999px);
     transform: scale(1);
   }
   96%,
   100% {
-    opacity: 0;
-    transform: scale(0.6);
+    clip-path: inset(0 0 0 100% round 999px);
+    transform: scale(0.8);
   }
 }
 @keyframes stamp-loop {
   0%,
   40% {
-    opacity: 0;
+    clip-path: circle(0% at 50% 50%);
     transform: scale(2.4) rotate(-30deg);
   }
   52%,
   88% {
-    opacity: 1;
+    clip-path: circle(75% at 50% 50%);
     transform: scale(1) rotate(-12deg);
   }
   96%,
   100% {
-    opacity: 0;
+    clip-path: circle(0% at 50% 50%);
     transform: scale(1) rotate(-12deg);
   }
 }
@@ -2234,20 +2235,21 @@ table.list {
     max-width: 420px;
     margin-left: auto;
     visibility: hidden;
-    opacity: 0;
+    clip-path: inset(0 0 100% 30% round var(--r-lg));
     transform: translateY(-12px) scale(0.96);
     transform-origin: top right;
     transition:
-      opacity 180ms var(--out),
+      clip-path 260ms var(--out),
       transform 520ms var(--spring),
-      visibility 0s 200ms;
+      visibility 0s 260ms;
   }
   .topbar[data-open='true'] .menu-panel {
     visibility: visible;
-    opacity: 1;
+    /* Room for the clay shadow below the sheet. */
+    clip-path: inset(0 -40px -60px -40px round var(--r-lg));
     transform: none;
     transition:
-      opacity 180ms var(--out),
+      clip-path 360ms var(--out),
       transform 520ms var(--spring),
       visibility 0s;
   }
