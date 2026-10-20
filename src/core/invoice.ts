@@ -104,11 +104,20 @@ export type InvoiceFile = {
   name: string;
 };
 
+export type ExtractOptions = {
+  /**
+   * Asked before any extra upstream AI call (a retry or a re-read). Returns
+   * false when the per-invoice read limit is used up.
+   */
+  anotherCall?: () => Promise<boolean>;
+};
+
 export interface ExtractionProvider {
   readonly id: string;
   extract(
     file: InvoiceFile,
     signal?: AbortSignal,
+    options?: ExtractOptions,
   ): Promise<{ value: Extraction; usage: Usage }>;
 }
 

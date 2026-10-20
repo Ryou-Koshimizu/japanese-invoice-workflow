@@ -107,6 +107,7 @@ describe('reliable provider', () => {
         id: 'fake',
         async extract() {
           const step = steps[n++];
+          if (step === undefined) throw new Error('UNEXPECTED_THIRD_CALL');
           if (step instanceof Error) throw step;
           return reading(step);
         },
@@ -120,10 +121,18 @@ describe('reliable provider', () => {
     expect(r.value.registrationNumber).toBe('T7000012050002');
     expect(f.calls()).toBe(2);
   });
-  it('does not retry a refusal from the app (e.g. unsupported file)', async () => {
-    const f = fake(new AppError(422, 'PDF不可'), 'T7000012050002');
-    await expect(reliable(f.provider).extract(file)).rejects.toThrow('PDF不可');
-    expect(f.calls()).toBe(1);
+  it('retries only exact transient codes, never refusals or look-alikes', async () => {
+    for (const e of [
+      new AppError(422, 'PDF不可'),
+      new Error('CODEX_RATE_LIMIT'),
+      new Error('CODEX_AUTH_FAILED'),
+      new Error('not CODEX_TIMEOUT really'),
+      new Error('Unexpected token in JSON'),
+    ]) {
+      const f = fake(e, 'T7000012050002');
+      await expect(reliable(f.provider).extract(file)).rejects.toBe(e);
+      expect(f.calls(), e.message).toBe(1);
+    }
   });
   it('re-reads a malformed registration number and keeps the well-formed one', async () => {
     const f = fake('T700001205002', 'T7000012050002');
@@ -141,5 +150,33 @@ describe('reliable provider', () => {
     const f = fake('T7000012050002');
     await reliable(f.provider).extract(file);
     expect(f.calls()).toBe(1);
+  });
+  it('makes at most two upstream calls per extract, even after a retry', async () => {
+    const f = fake(
+      new Error('CODEX_TIMEOUT'),
+      'T700001205002',
+      'T7000012050002',
+    );
+    const r = await reliable(f.provider).extract(file);
+    expect(r.value.registrationNumber).toBe('T700001205002');
+    expect(f.calls()).toBe(2);
+    const g = fake(new Error('CODEX_TIMEOUT'), new Error('CODEX_TIMEOUT'));
+    await expect(reliable(g.provider).extract(file)).rejects.toThrow(
+      'CODEX_TIMEOUT',
+    );
+    expect(g.calls()).toBe(2);
+  });
+  it('asks the read budget before every extra call and stops when it is used up', async () => {
+    let asked = 0;
+    const denied = { anotherCall: async () => (asked++, false) };
+    const f = fake('T700001205002', 'T7000012050002');
+    const r = await reliable(f.provider).extract(file, undefined, denied);
+    expect(r.value.registrationNumber).toBe('T700001205002');
+    expect([f.calls(), asked]).toEqual([1, 1]);
+    const g = fake(new Error('CODEX_TIMEOUT'), 'T7000012050002');
+    await expect(
+      reliable(g.provider).extract(file, undefined, denied),
+    ).rejects.toThrow('CODEX_TIMEOUT');
+    expect([g.calls(), asked]).toEqual([1, 2]);
   });
 });

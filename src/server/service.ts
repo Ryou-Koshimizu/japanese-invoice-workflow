@@ -158,6 +158,19 @@ export async function getFile(deps: Deps, s: Session, id: string) {
   });
 }
 
+/**
+ * Count one upstream AI read against the per-invoice limit. Committed before
+ * the call, so parallel requests cannot run more reads than the limit.
+ */
+async function countRead(tx: Sql, id: string) {
+  const counted = await tx.query(
+    `UPDATE app.invoices SET extraction_count = extraction_count + 1
+      WHERE id = $1 AND extraction_count < $2 RETURNING id`,
+    [id, MAX_EXTRACTIONS],
+  );
+  return counted.rows.length > 0;
+}
+
 /** Run AI extraction, then the deterministic checks, and move to review. */
 export async function extractInvoice(
   deps: Deps,
@@ -170,12 +183,7 @@ export async function extractInvoice(
     ensure('extract', s, inv);
     // Counted before the AI call and committed with this short transaction, so
     // parallel requests cannot run more reads than the limit.
-    const counted = await tx.query(
-      `UPDATE app.invoices SET extraction_count = extraction_count + 1
-        WHERE id = $1 AND extraction_count < $2 RETURNING id`,
-      [id, MAX_EXTRACTIONS],
-    );
-    if (!counted.rows.length)
+    if (!(await countRead(tx, id)))
       throw new AppError(
         429,
         `AIによる読み取りは1枚につき${MAX_EXTRACTIONS}回までです。内容は画面で直接修正してください。`,
@@ -201,6 +209,10 @@ export async function extractInvoice(
         name: inv.file_name,
       },
       signal,
+      {
+        // A retry or re-read is one more read against the same limit.
+        anotherCall: () => asUser(deps.db, ctx(s), (tx) => countRead(tx, id)),
+      },
     );
     extraction = extractionSchema.parse(out.value);
     usage = out.usage;
