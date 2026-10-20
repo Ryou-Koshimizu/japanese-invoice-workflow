@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { CreditCard } from 'lucide-react';
 import { roleLabels, type Role } from '../../../src/core/invoice';
 
 export function MemberRole({
@@ -67,11 +68,12 @@ export function UpgradeButton({ enabled }: { enabled: boolean }) {
           else setError(json.error ?? '決済ページを開けませんでした。');
         }}
       >
+        <CreditCard className="icon" aria-hidden="true" />
         Proプランにアップグレード（Stripe）
       </button>
       {!enabled && (
         <span className="meta-line">
-          この環境ではStripeのキーが設定されていないため無効です。
+          Stripeのテストモードのキーを設定すると、この画面から決済できます（設定方法はdocs/local-setup.md）。
         </span>
       )}
       {error && (

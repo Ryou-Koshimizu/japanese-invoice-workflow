@@ -1,19 +1,10 @@
-import { test, expect, type Page } from '@playwright/test';
-import { AxeBuilder } from '@axe-core/playwright';
-
-async function loginAs(page: Page, who: RegExp) {
-  await page.context().clearCookies();
-  await page.goto('/login');
-  await page.getByRole('button', { name: who }).click();
-  await page.waitForURL('/');
-}
-const a11y = async (page: Page) =>
-  expect(
-    (await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze())
-      .violations,
-  ).toEqual([]);
+import { test, expect } from '@playwright/test';
+import { a11y, loginAs, resetDemo } from './helpers';
 
 test.describe.configure({ mode: 'serial' });
+test.beforeAll(async ({ browser, baseURL }) => {
+  await resetDemo(browser, baseURL!);
+});
 
 test('担当者が誤った税額を修正して承認依頼し、承認者が承認し、管理者がCSVを出力する', async ({
   page,
@@ -106,10 +97,10 @@ test('サンプルをアップロードすると読み取りと検証が走り�
   ).toBeVisible();
 });
 
-test('権限のない操作はAPIでも拒否される', async ({ page }) => {
+test('権限のない操作はAPIでも拒否される', async ({ page, baseURL }) => {
   await loginAs(page, /佐藤 美咲/);
   const exportAsMember = await page.request.post('/api/export', {
-    headers: { origin: 'http://127.0.0.1:3012' },
+    headers: { origin: baseURL! },
   });
   expect(exportAsMember.status()).toBe(403);
   const crossSite = await page.request.post('/api/export', {
@@ -138,4 +129,39 @@ test('スマホ幅で横にはみ出さない', async ({ page }) => {
   expect(
     await page.evaluate(() => document.documentElement.scrollWidth),
   ).toBeLessThanOrEqual(390);
+});
+
+test('すべての画面でWCAG 2.1 A/AAの違反が0件（パソコン幅・スマホ幅・メニューを開いた状態）', async ({
+  page,
+}) => {
+  test.setTimeout(240_000);
+  for (const size of [
+    { width: 1440, height: 900 },
+    { width: 390, height: 844 },
+  ]) {
+    await page.setViewportSize(size);
+    await page.context().clearCookies();
+    await page.goto('/login');
+    await a11y(page);
+    for (const who of [/佐藤 美咲/, /鈴木 健/, /高橋 由紀/]) {
+      await loginAs(page, who);
+      await a11y(page);
+      const invoices = await page
+        .locator('a.row-link')
+        .evaluateAll((as) => as.map((a) => a.getAttribute('href')!));
+      for (const href of invoices) {
+        await page.goto(href);
+        await a11y(page);
+      }
+      for (const path of ['/upload', '/settings', '/export', '/audit']) {
+        await page.goto(path);
+        await a11y(page);
+      }
+      const toggle = page.getByRole('button', { name: 'メニューを開く' });
+      if (await toggle.isVisible()) {
+        await toggle.click();
+        await a11y(page);
+      }
+    }
+  }
 });

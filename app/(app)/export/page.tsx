@@ -25,7 +25,10 @@ export default async function ExportPage() {
         </div>
         <ExportButton count={approved.length} />
       </div>
-      <div className="card" style={{ marginBottom: 20 }}>
+      <div
+        className="card list-card rise"
+        style={{ marginBottom: 24, '--i': 0 } as React.CSSProperties}
+      >
         <table className="list">
           <thead>
             <tr>
@@ -36,8 +39,8 @@ export default async function ExportPage() {
           </thead>
           <tbody>
             {approved.length ? (
-              approved.map((i) => (
-                <tr key={i.id}>
+              approved.map((i, n) => (
+                <tr key={i.id} style={{ '--i': n } as React.CSSProperties}>
                   <td>
                     <a className="row-link" href={`/invoices/${i.id}`}>
                       {i.vendor}
@@ -57,8 +60,13 @@ export default async function ExportPage() {
           </tbody>
         </table>
       </div>
-      <h2>出力履歴</h2>
-      <div className="card">
+      <h2 className="rise" style={{ '--i': 1 } as React.CSSProperties}>
+        出力履歴
+      </h2>
+      <div
+        className="card list-card rise"
+        style={{ '--i': 2 } as React.CSSProperties}
+      >
         <table className="list">
           <thead>
             <tr>
@@ -83,7 +91,7 @@ export default async function ExportPage() {
             ) : (
               <tr>
                 <td colSpan={4} className="empty">
-                  まだ出力していません。
+                  出力履歴は0件です。
                 </td>
               </tr>
             )}

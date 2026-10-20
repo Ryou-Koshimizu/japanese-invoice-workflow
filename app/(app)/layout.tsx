@@ -1,9 +1,14 @@
+import { FlaskConical } from 'lucide-react';
 import { pageSession } from '../../src/server/http';
 import { runtime } from '../../src/server/runtime';
 import { listInvoices } from '../../src/server/service';
 import { roleLabels } from '../../src/core/invoice';
-import Nav from './nav';
-import { LogoutButton, ResetDemoButton } from './session-buttons';
+import HeaderMenu from './nav';
+import {
+  LogoutButton,
+  LogoutIconButton,
+  ResetDemoButton,
+} from './session-buttons';
 
 export const dynamic = 'force-dynamic';
 
@@ -21,42 +26,54 @@ export default async function AppLayout({
       : i.status === 'submitted' && i.submitted_by !== s.userId,
   ).length;
   return (
-    <div className="shell">
+    <>
       <a className="skip" href="#main">
         本文へ移動
       </a>
-      <aside className="side">
-        <a className="brand" href="/">
-          <span className="seal">請</span>
-          <span>
-            <b>請求書AIワークフロー</b>
-            <small>{s.orgName}</small>
-          </span>
-        </a>
-        <Nav role={s.role} todo={mine} />
-        <div className="who">
-          <b>{s.userName}</b>
-          <span className="who-email">{s.email}</span>
-          <span className="role-chip">{roleLabels[s.role]}</span>
-          <LogoutButton />
+      <header className="topbar" data-open="false">
+        <div className="topbar-inner">
+          <a className="brand" href="/">
+            <span className="seal" aria-hidden="true">
+              請
+            </span>
+            <span>
+              <b>請求書AIワークフロー</b>
+              <small>{s.orgName}</small>
+            </span>
+          </a>
+          <HeaderMenu role={s.role} todo={mine}>
+            <div className="who">
+              <div className="who-card">
+                <b>{s.userName}</b>
+                <span className="who-email">{s.email}</span>
+                <span className="role-chip">{roleLabels[s.role]}</span>
+              </div>
+              <LogoutIconButton />
+            </div>
+          </HeaderMenu>
         </div>
-      </aside>
+      </header>
       <main className="main" id="main">
         {config.mode === 'demo' && (
           <div className="demo-bar" role="note">
-            <b>公開デモ</b>
+            <b>
+              <FlaskConical className="icon" aria-hidden="true" />
+              公開デモ
+            </b>
             <span>
-              AIは呼び出さず、サンプル請求書は事前に用意した読み取り結果を使います。
+              AIは呼び出さず、同梱のサンプル請求書には事前に用意した読み取り結果（正解データから作成）を使います。
               {config.sharedDatabase
                 ? 'データは1日ごと、または「デモを初期化」で元に戻ります。'
-                : 'データはサーバー再起動で初期化されます。'}
+                : 'データはサーバーの再起動で初期化されます。'}
             </span>
-            <LogoutButton label="別の役割でログイン" />
-            {s.role === 'admin' && <ResetDemoButton />}
+            <span className="demo-actions">
+              <LogoutButton label="別の役割でログイン" />
+              {s.role === 'admin' && <ResetDemoButton />}
+            </span>
           </div>
         )}
         {children}
       </main>
-    </div>
+    </>
   );
 }

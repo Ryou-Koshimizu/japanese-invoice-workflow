@@ -1,11 +1,15 @@
 'use client';
 import { useState } from 'react';
+import { FileSpreadsheet } from 'lucide-react';
 
 export default function ExportButton({ count }: { count: number }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   return (
-    <div style={{ display: 'grid', gap: 6, justifyItems: 'end' }}>
+    <div
+      className="head-action"
+      style={{ display: 'grid', gap: 6, justifyItems: 'end' }}
+    >
       <button
         className="btn primary"
         disabled={!count || busy}
@@ -40,6 +44,7 @@ export default function ExportButton({ count }: { count: number }) {
           window.location.reload();
         }}
       >
+        <FileSpreadsheet className="icon" aria-hidden="true" />
         {busy ? '出力中…' : `${count}件をCSV出力`}
       </button>
       {error && (

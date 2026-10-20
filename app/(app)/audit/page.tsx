@@ -37,7 +37,10 @@ export default async function AuditPage() {
           </p>
         </div>
       </div>
-      <div className="card scroll-x">
+      <div
+        className="card list-card scroll-x rise"
+        style={{ '--i': 0 } as React.CSSProperties}
+      >
         <table className="list">
           <thead>
             <tr>
@@ -49,8 +52,11 @@ export default async function AuditPage() {
             </tr>
           </thead>
           <tbody>
-            {rows.map((r) => (
-              <tr key={r.id}>
+            {rows.map((r, n) => (
+              <tr
+                key={r.id}
+                style={{ '--i': Math.min(n, 14) } as React.CSSProperties}
+              >
                 <td className="meta-line">{jstDateTime(r.at)}</td>
                 <td>{auditLabel(r.action)}</td>
                 <td>{r.actor ?? 'システム'}</td>
