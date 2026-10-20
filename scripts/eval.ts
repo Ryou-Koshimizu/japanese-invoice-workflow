@@ -123,13 +123,15 @@ for (const c of cases) {
       sha256: sha(Buffer.from(bytes)),
       name,
     });
-    const data = toInvoiceData(extractionSchema.parse(value));
+    const extraction = extractionSchema.parse(value);
+    const data = toInvoiceData(extraction);
     results.push(
       scoreCase(
         c,
         data,
         { elapsedMs: Date.now() - started, usage },
         manifest.referenceDate,
+        extraction.uncertain,
       ),
     );
     consecutiveFailures = 0;

@@ -8,6 +8,7 @@ import { login, sessionFromToken } from '../src/server/auth';
 import { DEMO_PASSWORD } from '../src/server/demo-seed';
 import { listInvoices, uploadInvoice } from '../src/server/service';
 import { readFileSync } from 'node:fs';
+import { MAX_EXTRACTIONS } from '../src/core/workflow';
 
 const run = process.env.RUN_POSTGRES_TESTS === '1';
 const ADMIN =
@@ -82,5 +83,24 @@ describe.skipIf(!run)('shared demo database', () => {
     await a.refresh(true);
     expect(await count('SELECT count(*)::int AS n FROM app.invoices')).toBe(7);
     expect(await sessionFromToken(a.db, token)).toBeNull();
+  }, 120000);
+
+  it('raises the per-invoice AI call limit on a database created with the old one', async () => {
+    const admin = new pg.Client({ connectionString: DEMO });
+    await admin.connect();
+    try {
+      await admin.query(
+        `ALTER TABLE app.invoices DROP CONSTRAINT invoices_extraction_count_check,
+           ADD CONSTRAINT invoices_extraction_count_check CHECK (extraction_count BETWEEN 0 AND 3)`,
+      );
+      opened.push(await openSharedDemo(DEMO, DEMO, fixtureProvider(), today));
+      const def = await admin.query<{ d: string }>(
+        `SELECT pg_get_constraintdef(oid) AS d FROM pg_constraint
+          WHERE conname = 'invoices_extraction_count_check'`,
+      );
+      expect(def.rows[0].d).toContain(`${MAX_EXTRACTIONS}`);
+    } finally {
+      await admin.end();
+    }
   }, 120000);
 });

@@ -4,10 +4,12 @@ export type Action =
   'extract' | 'edit' | 'submit' | 'approve' | 'reject' | 'export';
 
 /**
- * AI reads per invoice, including retries. Bounds what one upload can cost on
- * the operator's AI account; the database CHECK on extraction_count enforces it.
+ * Upstream AI calls per invoice. One read makes two calls (three when they
+ * disagree or one fails), so this allows three reads. Bounds what one upload
+ * can cost on the operator's AI account; the database CHECK on
+ * extraction_count enforces it.
  */
-export const MAX_EXTRACTIONS = 3;
+export const MAX_EXTRACTIONS = 9;
 
 export type Actor = { userId: string; role: Role };
 export type InvoiceState = { status: Status; submittedBy: string | null };

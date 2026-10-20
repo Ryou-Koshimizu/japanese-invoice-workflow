@@ -170,6 +170,15 @@ async function countRead(tx: Sql, id: string) {
   );
   return counted.rows.length > 0;
 }
+/** countRead in its own short transaction; a database with a lower CHECK limit also says no. */
+async function countReadNow(deps: Deps, s: Session, id: string) {
+  try {
+    return await asUser(deps.db, ctx(s), (tx) => countRead(tx, id));
+  } catch (e) {
+    if ((e as { code?: string }).code === '23514') return false;
+    throw e;
+  }
+}
 
 /** Run AI extraction, then the deterministic checks, and move to review. */
 export async function extractInvoice(
@@ -186,7 +195,7 @@ export async function extractInvoice(
     if (!(await countRead(tx, id)))
       throw new AppError(
         429,
-        `AIによる読み取りは1枚につき${MAX_EXTRACTIONS}回までです。内容は画面で直接修正してください。`,
+        `AIの呼び出しは1枚につき${MAX_EXTRACTIONS}回まで（読み取り1回で2〜3回）です。内容は画面で直接修正してください。`,
         'EXTRACTION_LIMIT',
       );
     const f = await tx.query<{ content: Uint8Array }>(

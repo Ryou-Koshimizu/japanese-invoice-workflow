@@ -1,5 +1,5 @@
-import type { InvoiceData } from '../core/invoice';
-import { validateInvoice } from '../core/rules';
+import type { Extraction, InvoiceData } from '../core/invoice';
+import { reviewIssues } from '../core/review';
 
 export const scoredFields = [
   'vendorName',
@@ -91,6 +91,8 @@ export type CaseResult = {
   unexpectedIssues: string[];
   /** Every rule code raised on the AI output. */
   issues: string[];
+  /** The values read for fields that did not match the truth. */
+  mismatches?: { field: string; got: unknown; want: unknown }[];
   elapsedMs: number;
   usage: { inputTokens: number; outputTokens: number };
   error?: string;
@@ -110,11 +112,17 @@ export function scoreCase(
     error?: string;
   },
   today: string,
+  /** Fields the AI (or the consensus of readings) flagged for a person. */
+  uncertain: Extraction['uncertain'] = [],
 ): CaseResult {
   const fields = Object.fromEntries(
     scoredFields.map((f) => [f, got ? compareField(f, got, c.truth) : false]),
   ) as Record<ScoredField, boolean>;
-  const found = got ? validateInvoice(got, { today }).map((i) => i.code) : [];
+  // Everything the review screen would show for this reading (images carry no
+  // text layer, so the PDF cross-check does not apply).
+  const found = got
+    ? reviewIssues({ data: got, ctx: { today }, uncertain }).map((i) => i.code)
+    : [];
   const fullyCorrect = requiredFields.every((f) => fields[f]);
   return {
     id: c.id,
@@ -128,6 +136,13 @@ export function scoreCase(
       ? found.filter((code) => !c.expectedIssues.includes(code))
       : [],
     issues: found,
+    ...(got && !fullyCorrect
+      ? {
+          mismatches: scoredFields
+            .filter((f) => !fields[f])
+            .map((f) => ({ field: f, got: got[f], want: c.truth[f] })),
+        }
+      : {}),
     ...meta,
   };
 }

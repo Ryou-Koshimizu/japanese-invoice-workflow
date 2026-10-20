@@ -11,6 +11,7 @@ import {
 } from '../src/server/auth';
 import { fixtureProvider } from '../src/adapters/fixture';
 import { reliable } from '../src/adapters/reliable';
+import { MAX_EXTRACTIONS } from '../src/core/workflow';
 import { seedDemo, DEMO_PASSWORD, demoUsers } from '../src/server/demo-seed';
 import {
   decideInvoice,
@@ -168,9 +169,11 @@ describe('workflow enforced by the database itself', () => {
       file('inv-09.pdf'),
     );
     const results = await Promise.allSettled(
-      Array.from({ length: 5 }, () => extractInvoice(deps, s.member, id)),
+      Array.from({ length: 12 }, () => extractInvoice(deps, s.member, id)),
     );
-    expect(results.filter((r) => r.status === 'fulfilled')).toHaveLength(3);
+    expect(results.filter((r) => r.status === 'fulfilled')).toHaveLength(
+      MAX_EXTRACTIONS,
+    );
     await expect(extractInvoice(deps, s.member, id)).rejects.toMatchObject({
       status: 429,
       code: 'EXTRACTION_LIMIT',
@@ -183,7 +186,7 @@ describe('workflow enforced by the database itself', () => {
       ),
     );
   });
-  it('counts every upstream AI call of a retry or re-read against the limit', async () => {
+  it('counts every upstream AI call of a consensus read against the limit', async () => {
     const id = await uploadInvoice(
       deps,
       s.member,
@@ -192,26 +195,26 @@ describe('workflow enforced by the database itself', () => {
     );
     let upstream = 0;
     const fixture = fixtureProvider();
-    // Every call times out except the first of each pair, so each extract()
-    // wants a retry; the database limit (3) must stop the third upstream call.
-    const flaky = reliable({
-      id: 'flaky',
+    // The first reading of each pair slips, so every read needs a third call.
+    const slipping = reliable({
+      id: 'slipping',
       async extract(f, signal) {
-        upstream++;
-        if (upstream % 2 === 1) throw new Error('CODEX_TIMEOUT');
-        return fixture.extract(f, signal);
+        const r = await fixture.extract(f, signal);
+        return upstream++ % 3 === 0
+          ? { ...r, value: { ...r.value, vendorName: '誤読' } }
+          : r;
       },
     });
-    const d = { ...deps, provider: flaky };
-    await extractInvoice(d, s.member, id); // 2 upstream calls
-    await expect(extractInvoice(d, s.member, id)).rejects.toThrow(
-      'AIによる読み取りに失敗しました',
-    ); // 1 call, the retry is refused by the limit
-    expect(upstream).toBe(3);
+    const d = { ...deps, provider: slipping };
+    for (let n = 0; n < MAX_EXTRACTIONS / 3; n++)
+      await extractInvoice(d, s.member, id);
+    expect(upstream).toBe(MAX_EXTRACTIONS);
+    const { invoice } = await getInvoice(deps, s.member, id);
+    expect(invoice.data?.vendorName).not.toBe('誤読');
     await expect(extractInvoice(d, s.member, id)).rejects.toMatchObject({
       code: 'EXTRACTION_LIMIT',
     });
-    expect(upstream).toBe(3);
+    expect(upstream).toBe(MAX_EXTRACTIONS);
   });
   it('rejects approval by a member at the database level', async () => {
     const id = await submittedBy(s.admin, 'inv-07.pdf');

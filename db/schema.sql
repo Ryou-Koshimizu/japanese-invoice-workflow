@@ -61,8 +61,8 @@ CREATE TABLE app.invoices (
   warning_note text,
   reject_reason text,
   extraction_meta jsonb,
-  -- AI reads per invoice (MAX_EXTRACTIONS in src/core/workflow.ts).
-  extraction_count integer NOT NULL DEFAULT 0 CHECK (extraction_count BETWEEN 0 AND 3),
+  -- Upstream AI calls per invoice (MAX_EXTRACTIONS in src/core/workflow.ts).
+  extraction_count integer NOT NULL DEFAULT 0 CHECK (extraction_count BETWEEN 0 AND 9),
   registration_number text,
   invoice_number text,
   total_amount bigint,

@@ -7,6 +7,7 @@ import pg from 'pg';
 import type { PGlite } from '@electric-sql/pglite';
 import { pgDatabase, type Database } from './db';
 import { schemaSql } from './schema';
+import { MAX_EXTRACTIONS } from '../core/workflow';
 import { seedDemo } from './demo-seed';
 import type { ExtractionProvider } from '../core/invoice';
 
@@ -53,6 +54,14 @@ export async function openSharedDemo(
       `SELECT to_regclass('app.organizations')::text AS t`,
     );
     if (!t.rows[0].t) await admin.query(schemaSql());
+    // Databases created before the per-invoice limit counted every AI call.
+    else
+      await admin.query(
+        `ALTER TABLE app.invoices
+           DROP CONSTRAINT IF EXISTS invoices_extraction_count_check,
+           ADD CONSTRAINT invoices_extraction_count_check
+             CHECK (extraction_count BETWEEN 0 AND ${MAX_EXTRACTIONS})`,
+      );
     // On managed PostgreSQL the owner is not a superuser and needs membership
     // to switch to app_user for each request.
     await admin.query('GRANT app_user TO CURRENT_USER');
