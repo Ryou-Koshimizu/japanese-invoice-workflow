@@ -5,6 +5,7 @@ import { FileSpreadsheet } from 'lucide-react';
 export default function ExportButton({ count }: { count: number }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const [done, setDone] = useState('');
   return (
     <div
       className="head-action"
@@ -12,7 +13,7 @@ export default function ExportButton({ count }: { count: number }) {
     >
       <button
         className="btn primary"
-        disabled={!count || busy}
+        disabled={!count || busy || !!done}
         onClick={async () => {
           if (
             !confirm(
@@ -39,14 +40,26 @@ export default function ExportButton({ count }: { count: number }) {
           const a = document.createElement('a');
           a.href = url;
           a.download = name;
+          document.body.append(a);
           a.click();
-          URL.revokeObjectURL(url);
-          window.location.reload();
+          a.remove();
+          setDone(name);
+          // Safari drops a download whose blob URL is revoked, or whose page
+          // reloads, right after the click; give it a moment first.
+          setTimeout(() => {
+            URL.revokeObjectURL(url);
+            window.location.reload();
+          }, 1500);
         }}
       >
         <FileSpreadsheet className="icon" aria-hidden="true" />
         {busy ? '出力中…' : `${count}件をCSV出力`}
       </button>
+      {done && (
+        <span className="alert success" role="status">
+          {done} を出力しました
+        </span>
+      )}
       {error && (
         <span className="alert" role="alert">
           {error}
