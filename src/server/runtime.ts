@@ -13,14 +13,19 @@ export type Runtime = {
 async function provider(config: Config): Promise<ExtractionProvider> {
   if (config.mode === 'demo')
     return (await import('../adapters/fixture')).fixtureProvider();
+  const { reliable } = await import('../adapters/reliable');
   if (config.EXTRACTION_PROVIDER === 'codex')
-    return (await import('../adapters/codex')).codexProvider({
-      model: config.CODEX_MODEL!,
-      effort: config.CODEX_EFFORT,
-    });
-  return (await import('../adapters/claude')).claudeProvider(
-    config.ANTHROPIC_API_KEY!,
-    config.ANTHROPIC_MODEL!,
+    return reliable(
+      (await import('../adapters/codex')).codexProvider({
+        model: config.CODEX_MODEL!,
+        effort: config.CODEX_EFFORT,
+      }),
+    );
+  return reliable(
+    (await import('../adapters/claude')).claudeProvider(
+      config.ANTHROPIC_API_KEY!,
+      config.ANTHROPIC_MODEL!,
+    ),
   );
 }
 

@@ -186,7 +186,7 @@ async function infer(
         terminate('SIGTERM');
         killTimer = setTimeout(() => terminate('SIGKILL'), 1000);
       };
-      const timer = setTimeout(() => stop(new Error('CODEX_TIMEOUT')), 115000);
+      const timer = setTimeout(() => stop(new Error('CODEX_TIMEOUT')), 55000);
       const abort = () => stop(new Error('CODEX_CANCELLED'));
       signal?.addEventListener('abort', abort, { once: true });
       if (signal?.aborted) abort();

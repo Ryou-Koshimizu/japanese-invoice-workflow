@@ -1,8 +1,10 @@
-import { it, expect } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { MockLanguageModelV4 } from 'ai/test';
 import { aiSdkProvider } from '../src/adapters/claude';
 import { parseCodexOutput } from '../src/adapters/codex';
+import { reliable } from '../src/adapters/reliable';
+import { AppError } from '../src/server/db';
 
 const truth = JSON.parse(readFileSync('eval/cases.json', 'utf8')).cases[0]
   .truth;
@@ -85,4 +87,59 @@ it('accepts only the final structured Codex message and usage', () => {
     item: { type: 'command_execution' },
   });
   expect(() => parseCodexOutput(tool)).toThrow(/CODEX_UNEXPECTED_ITEM/);
+});
+
+describe('reliable provider', () => {
+  const file = {
+    bytes: new Uint8Array([1]),
+    mediaType: 'image/png' as const,
+    sha256: 'x',
+    name: 'inv.png',
+  };
+  const usage = { inputTokens: 10, outputTokens: 2 };
+  const reading = (registrationNumber: string) =>
+    ({ value: { registrationNumber }, usage }) as never;
+  const fake = (...steps: (string | Error)[]) => {
+    let n = 0;
+    return {
+      calls: () => n,
+      provider: {
+        id: 'fake',
+        async extract() {
+          const step = steps[n++];
+          if (step instanceof Error) throw step;
+          return reading(step);
+        },
+      },
+    };
+  };
+
+  it('retries a timed-out call once', async () => {
+    const f = fake(new Error('CODEX_TIMEOUT'), 'T7000012050002');
+    const r = await reliable(f.provider).extract(file);
+    expect(r.value.registrationNumber).toBe('T7000012050002');
+    expect(f.calls()).toBe(2);
+  });
+  it('does not retry a refusal from the app (e.g. unsupported file)', async () => {
+    const f = fake(new AppError(422, 'PDF不可'), 'T7000012050002');
+    await expect(reliable(f.provider).extract(file)).rejects.toThrow('PDF不可');
+    expect(f.calls()).toBe(1);
+  });
+  it('re-reads a malformed registration number and keeps the well-formed one', async () => {
+    const f = fake('T700001205002', 'T7000012050002');
+    const r = await reliable(f.provider).extract(file);
+    expect(r.value.registrationNumber).toBe('T7000012050002');
+    expect(r.usage).toEqual({ inputTokens: 20, outputTokens: 4 });
+  });
+  it('keeps a misprinted number that reads the same twice, so the rule reports it', async () => {
+    const f = fake('T945297698399', 'T945297698399');
+    const r = await reliable(f.provider).extract(file);
+    expect(r.value.registrationNumber).toBe('T945297698399');
+    expect(f.calls()).toBe(2);
+  });
+  it('reads once when the number is well-formed', async () => {
+    const f = fake('T7000012050002');
+    await reliable(f.provider).extract(file);
+    expect(f.calls()).toBe(1);
+  });
 });

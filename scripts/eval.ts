@@ -35,20 +35,26 @@ const cases = ids
   ? manifest.cases.filter((c) => ids.includes(c.id))
   : manifest.cases;
 
+// The same safeguards as the app (retry once, re-read a malformed number).
+const { reliable } = await import('../src/adapters/reliable');
 const kind = process.env.EXTRACTION_PROVIDER ?? 'claude';
 let provider: ExtractionProvider;
 let model: string;
 if (kind === 'codex') {
   const { codexProvider } = await import('../src/adapters/codex');
   model = process.env.CODEX_MODEL ?? '';
-  provider = codexProvider({
-    model,
-    effort: (process.env.CODEX_EFFORT as never) ?? 'auto',
-  });
+  provider = reliable(
+    codexProvider({
+      model,
+      effort: (process.env.CODEX_EFFORT as never) ?? 'auto',
+    }),
+  );
 } else if (kind === 'claude') {
   const { claudeProvider } = await import('../src/adapters/claude');
   model = process.env.ANTHROPIC_MODEL ?? '';
-  provider = claudeProvider(process.env.ANTHROPIC_API_KEY ?? '', model);
+  provider = reliable(
+    claudeProvider(process.env.ANTHROPIC_API_KEY ?? '', model),
+  );
 } else if (kind === 'fixture') {
   // Pipeline check only: replays the demo fixtures. Never report this as AI accuracy.
   const { fixtureProvider } = await import('../src/adapters/fixture');
