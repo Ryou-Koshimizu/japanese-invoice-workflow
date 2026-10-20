@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { MockLanguageModelV4 } from 'ai/test';
 import { aiSdkProvider } from '../src/adapters/claude';
-import { parseCodexOutput } from '../src/adapters/codex';
+import { parseCodexOutput, inferenceError } from '../src/adapters/codex';
 import { reliable, MAX_CALLS_PER_READ } from '../src/adapters/reliable';
 import { AppError } from '../src/server/db';
 
@@ -195,4 +195,11 @@ describe('consensus reading (reliable provider)', () => {
     await read(g, { anotherCall: async () => left-- > 0 });
     expect(g.calls()).toBe(2);
   });
+});
+
+it('classifies a usage limit reported on stdout as a rate limit, which is not retried', () => {
+  const stdout =
+    '{"type":"error","message":"You’ve hit your usage limit. Try again at 11:02 PM."}';
+  const e = inferenceError(`\n${stdout}`);
+  expect(e.message).toBe('CODEX_RATE_LIMIT');
 });

@@ -17,7 +17,7 @@ export type CodexOptions = {
   model: string;
   effort: 'auto' | 'low' | 'medium' | 'high' | 'xhigh';
 };
-function inferenceError(detail: unknown) {
+export function inferenceError(detail: unknown) {
   const text = typeof detail === 'string' ? detail : JSON.stringify(detail);
   return new Error(
     /usage.limit|rate.limit|quota|credits|limit.*reached/i.test(text)
@@ -211,7 +211,10 @@ async function infer(
         clearTimeout(timer);
         clearTimeout(killTimer);
         signal?.removeEventListener('abort', abort);
-        if (failure || code !== 0) reject(failure ?? inferenceError(stderr));
+        // The CLI reports usage limits and auth failures as JSON events on
+        // stdout, so classify with both streams.
+        if (failure || code !== 0)
+          reject(failure ?? inferenceError(`${stderr}\n${stdout}`));
         else resolve(stdout);
       });
       child.stdin.end(JSON.stringify(data));
