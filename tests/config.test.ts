@@ -34,6 +34,26 @@ describe('configuration', () => {
       ),
     ).toThrow(/APP_ORIGIN/);
   });
+  it('accepts a local origin for live mode on this machine, and only http(s)', () => {
+    const base = {
+      APP_MODE: 'live',
+      DATABASE_URL: 'postgresql://app@127.0.0.1/invoices',
+      EXTRACTION_PROVIDER: 'codex',
+      CODEX_MODEL: 'model',
+    };
+    for (const APP_ORIGIN of [
+      'http://127.0.0.1:3000',
+      'http://localhost:3000',
+      'https://invoices.example.com',
+    ])
+      expect(readConfig(env({ ...base, APP_ORIGIN })).mode, APP_ORIGIN).toBe(
+        'live',
+      );
+    for (const APP_ORIGIN of ['javascript:alert(1)', 'ftp://a.example'])
+      expect(() => readConfig(env({ ...base, APP_ORIGIN }))).toThrow(
+        /APP_ORIGIN/,
+      );
+  });
   it('checks the configured origin only in live mode', () => {
     expect(
       publicOrigin(env({ APP_MODE: 'demo', APP_ORIGIN: 'https://a.example' })),

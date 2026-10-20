@@ -2,7 +2,8 @@ import { z } from 'zod';
 
 const live = z.object({
   DATABASE_URL: z.string().startsWith('postgres'),
-  APP_ORIGIN: z.httpUrl(),
+  // http(s) only; z.httpUrl() would also reject 127.0.0.1 and localhost.
+  APP_ORIGIN: z.url({ protocol: /^https?$/ }),
   EXTRACTION_PROVIDER: z.enum(['claude', 'codex']).default('claude'),
   ANTHROPIC_API_KEY: z.string().optional(),
   ANTHROPIC_MODEL: z.string().optional(),
