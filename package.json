@@ -26,24 +26,24 @@
     "fixtures:build": "tsx scripts/build-demo-fixtures.ts"
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "^4.0.79",
-    "@electric-sql/pglite": "^0.5.9",
+    "@ai-sdk/anthropic": "^4.0.88",
+    "@electric-sql/pglite": "^0.5.11",
     "@fontsource-variable/noto-sans-jp": "^5.3.1",
-    "@fontsource/zen-maru-gothic": "5.3.0",
-    "ai": "^7.0.139",
-    "lucide-react": "1.52.0",
-    "next": "^16.4.0",
+    "@fontsource/zen-maru-gothic": "5.3.1",
+    "ai": "^7.0.153",
+    "lucide-react": "1.61.0",
+    "next": "^16.4.3",
     "pdfjs-dist": "^6.4.299",
     "pg": "^8.23.1",
-    "react": "^19.3.0",
-    "react-dom": "^19.3.0",
-    "stripe": "^23.0.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "stripe": "^23.0.1",
     "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.13.0",
+    "@axe-core/playwright": "^4.14.0",
     "@fontsource/noto-sans-jp": "^5.3.1",
-    "@playwright/test": "^1.64.0",
+    "@playwright/test": "^1.64.1",
     "@types/node": "^26.6.5",
     "@types/pg": "^8.23.1",
     "@types/react": "^19.3.0",
@@ -51,6 +51,6 @@
     "prettier": "^3.9.10",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",
-    "vitest": "^5.0.4"
+    "vitest": "^5.0.5"
   }
 }
