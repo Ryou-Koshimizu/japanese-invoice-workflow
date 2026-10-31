@@ -32,7 +32,7 @@
     "@fontsource/zen-maru-gothic": "5.3.0",
     "ai": "^7.0.139",
     "lucide-react": "1.52.0",
-    "next": "^16.4.0",
+    "next": "^16.4.1",
     "pdfjs-dist": "^6.4.299",
     "pg": "^8.23.1",
     "react": "^19.3.0",
